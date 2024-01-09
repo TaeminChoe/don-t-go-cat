@@ -1,5 +1,9 @@
 # Don't go cat 프로젝트
 
+## Go to page
+
+**https://taeminchoe.github.io/don-t-go-cat/**
+
 ## 프로젝트 스펙
 
 ```
@@ -84,11 +88,11 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Deployment
+### `npm run deploy`
 
-추후 수정 예정
+gh-pages를 이용해 git에 배포
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+명령어 하나로 build, deploy 모두 가능. repo에는 gh-pages라는 branch로 관리되어 작업하는 코드와는 분리됨.
 
 ### `npm run build` fails to minify
 
