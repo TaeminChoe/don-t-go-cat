@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import routes from "./system/router";
-import { URL_LOGIN, URL_NOT_FOUND } from "system/URL";
+import { BASENAME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import Layout from "components/Layout";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
   };
   return (
     <div className="App">
-      <Router>
+      <Router basename={BASENAME}>
         <Switch>
           {routes.map((route, index) => {
             const { path, component: Component, exact, isPrivate } = route;
