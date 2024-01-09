@@ -29,8 +29,9 @@ function App() {
                 path={path}
                 exact={exact}
                 render={(props) =>
-                  // 로그인 여부에 따라 페이지를 렌더링
+                  // 권한이 필요한 페이지 분기 처리
                   isPrivate ? (
+                    // 로그인 여부에 따라 페이지를 렌더링
                     checkAuth() ? (
                       <Layout>
                         <Component {...props} />
@@ -46,6 +47,7 @@ function App() {
               />
             );
           })}
+          {/* 미리 선언하지 않은 url에 접근하는 경우 not found페이지로 이동 */}
           <Route
             path="*"
             render={(props) => <Redirect to={URL_NOT_FOUND} {...props} />}
