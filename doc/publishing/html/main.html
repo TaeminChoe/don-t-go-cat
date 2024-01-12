@@ -10,80 +10,88 @@
   <body>
     <!-- 헤더 -->
     <header>
-      <a href="#" class="logo">로고</a>
+      <a href="#" class="logo">
+        <img src="../assets/img/logo.png" alt="로고" />
+      </a>
       <div class="icons">
-        <span class="search-icon">&#128269;</span>
-        <span id="menu-icon" class="menu-icon">&#9776;</span>
+        <span id="search-icon" class="icon">
+          <img src="../assets/icon/search.svg" class="search" alt="검색" />
+        </span>
+        <span id="menu-icon" class="icon">
+          <img src="../assets/icon/menu.svg" class="menu" alt="검색" />
+        </span>
       </div>
     </header>
 
     <!-- 사이드 메뉴 -->
     <aside id="menu" class="dropdown-menu" id="myDropdown">
-      <a href="#" class="dropdown-item">메뉴 항목 1</a>
-      <a href="#" class="dropdown-item">메뉴 항목 2</a>
-      <a href="#" class="dropdown-item">메뉴 항목 3</a>
+      <a href="#" class="dropdown-item">검색</a>
+      <a href="#" class="dropdown-item">로그인 아이디 : 양태욱멋있어</a>
+      <a href="#" class="dropdown-item">로그 아웃</a>
     </aside>
 
     <!-- 메인 : 컨텐츠 리스트 영역 -->
     <div class="container">
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
-      <div class="item">아이템 1</div>
-      <div class="item">아이템 2</div>
-      <div class="item">아이템 3</div>
-      <div class="item">아이템 4</div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">박희연이 준 z플립5 팝니다..!</div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">늦은 밤 너의 집 앞 골목길에서</div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">
+          오래되었어 그 때 너의 웃음 너의 목소리 잊혀진것같아
+        </div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">
+          그런데 이게 뭐랄까 난 나 술한잔 하면서 괜찮은 듯 얘기 하며 널
+          덜어내었는데
+        </div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">구찌 남자벨트 판매합니다.</div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">Mac Air 싸게 팝니다</div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">딥다이브 팝니다</div>
+        <div class="date">2024-02-17</div>
+      </div>
+      <div class="item">
+        <img src="../assets/img/sample500.png" alt="아이템" />
+        <div class="title">신입사원 구합니다 react 개발자 우대</div>
+        <div class="date">2024-02-17</div>
+      </div>
     </div>
   </body>
 
   <script>
+    const searchIcon = document.getElementById("search-icon");
     const menu = document.getElementById("menu");
     const menuIcon = document.getElementById("menu-icon");
+
+    searchIcon.addEventListener("click", () => {
+      //   alert("검색");
+      location.href = "search.html";
+    });
 
     menuIcon.addEventListener("click", () => {
       menu.classList.toggle("is-open");
     });
-
-    // function toggleMenu() {
-    //   var dropdownMenu = document.getElementById("myDropdown");
-    //   dropdownMenu.style.display =
-    //     dropdownMenu.style.display === "block" ? "none" : "block";
-    // }
-
-    // // 창 외부를 클릭하면 메뉴가 닫히도록 추가
-    // window.onclick = function (event) {
-    //   var dropdownMenu = document.getElementById("myDropdown");
-    //   if (event.target.matches(".menu-btn")) {
-    //     return;
-    //   }
-    //   if (dropdownMenu.style.display === "block") {
-    //     dropdownMenu.style.display = "none";
-    //   }
-    // };
   </script>
 </html>
