@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/login.css" />
+    <title>로그인 페이지</title>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <!-- 로그인 타이틀 영역 -->
+        <div class="title-container">
+          <div class="title-background">
+            <h1 class="title">Login</h1>
+          </div>
+        </div>
+        <!-- 아이디 TextField -->
+        <div class="textfield-container">
+          <input
+            type="text"
+            name="id"
+            id="id"
+            placeholder="아이디를 입력해주세요"
+          />
+        </div>
+        <div class="textfield-container">
+          <input
+            type="password"
+            name="pw"
+            id="pw"
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </div>
+        <div class="login-button-container">
+          <button>로그인</button>
+        </div>
+      </fieldset>
+    </form>
+  </body>
+  <script>
+    const id = document.getElementById("id");
+    const pw = document.getElementById("pw");
+    const loginButton = document.querySelector("button");
+
+    loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      alert("로그인 성공");
+      location.href = "./main.html";
+    });
+  </script>
+</html>
