@@ -1,4 +1,6 @@
+import ProductList from "components/ProductList";
 import { apiTest } from "utils/api";
+import MOCK_DATA from "../../MOCK_DATA.json";
 
 const HomePage = () => {
   const handleClick = () => {
@@ -11,6 +13,7 @@ const HomePage = () => {
       <button type="button" onClick={handleClick}>
         API 테스트
       </button>
+      <ProductList products={MOCK_DATA} />
     </>
   );
 };
