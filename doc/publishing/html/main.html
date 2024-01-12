@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css" />
+    <title>가지 마켓</title>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header>
+      <a href="#" class="logo">로고</a>
+      <div class="icons">
+        <span class="search-icon">&#128269;</span>
+        <span id="menu-icon" class="menu-icon">&#9776;</span>
+      </div>
+    </header>
+
+    <!-- 사이드 메뉴 -->
+    <aside id="menu" class="dropdown-menu" id="myDropdown">
+      <a href="#" class="dropdown-item">메뉴 항목 1</a>
+      <a href="#" class="dropdown-item">메뉴 항목 2</a>
+      <a href="#" class="dropdown-item">메뉴 항목 3</a>
+    </aside>
+
+    <!-- 메인 : 컨텐츠 리스트 영역 -->
+    <div class="container">
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+      <div class="item">아이템 1</div>
+      <div class="item">아이템 2</div>
+      <div class="item">아이템 3</div>
+      <div class="item">아이템 4</div>
+    </div>
+  </body>
+
+  <script>
+    const menu = document.getElementById("menu");
+    const menuIcon = document.getElementById("menu-icon");
+
+    menuIcon.addEventListener("click", () => {
+      menu.classList.toggle("is-open");
+    });
+
+    // function toggleMenu() {
+    //   var dropdownMenu = document.getElementById("myDropdown");
+    //   dropdownMenu.style.display =
+    //     dropdownMenu.style.display === "block" ? "none" : "block";
+    // }
+
+    // // 창 외부를 클릭하면 메뉴가 닫히도록 추가
+    // window.onclick = function (event) {
+    //   var dropdownMenu = document.getElementById("myDropdown");
+    //   if (event.target.matches(".menu-btn")) {
+    //     return;
+    //   }
+    //   if (dropdownMenu.style.display === "block") {
+    //     dropdownMenu.style.display = "none";
+    //   }
+    // };
+  </script>
+</html>
