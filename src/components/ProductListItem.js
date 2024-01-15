@@ -1,9 +1,9 @@
-const ProductListItem = ({ product, style }) => {
+const ProductListItem = ({ product, targetRef }) => {
   const { title, img, date } = product;
 
   return (
-    <div style={{ ...style }}>
-      <div style={{ float: "left", width: "200px" }}>
+    <div>
+      <div style={{ float: "left", width: "200px" }} ref={targetRef}>
         <div>
           <img src={img} width="200px" />
         </div>
