@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ProductListItem from "./ProductListItem";
+import { useInView } from "react-intersection-observer";
 
 const ProductList = ({ products }) => {
   const target = useRef(null);
@@ -128,10 +129,21 @@ const ProductList = ({ products }) => {
     },
   ]);
 
-  useEffect(() => {
-    if (!!target.current) observer.observe(target.current);
-  }, [target.current]);
+  // intersection-observer 라이브러리 사용
+  const [ref, inView] = useInView();
 
+  useEffect(() => {
+    if (inView) {
+      loadMore();
+    }
+  }, [inView]);
+
+  // intersection-observer api 사용
+  // useEffect(() => {
+  //   if (!!target.current) observer.observe(target.current);
+  // }, [target.current]);
+
+  // 스크롤 뷰포트에 닿을 때 실행할 함수(다음 리스트 가져오기)
   const loadMore = () => {
     setViewProducts(
       viewProducts.concat(
@@ -144,19 +156,27 @@ const ProductList = ({ products }) => {
     setPreId(preId + 20);
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return; // entry가 interscting 중이 아니라면 함수를 실행하지 않음
+  // intersection-observer api 사용
+  // const observer = new IntersectionObserver((entries) => {
+  //   entries.forEach((entry) => {
+  //     if (!entry.isIntersecting) return; // entry가 interscting 중이 아니라면 함수를 실행하지 않음
 
-      // 실행할 함수
-      loadMore();
-    });
-  });
+  //     // 실행할 함수
+  //     loadMore();
+  //   });
+  // });
 
   return (
     <div>
       {viewProducts.map((item, idx) => {
-        return <ProductListItem product={item} key={idx} targetRef={target} />;
+        return (
+          <ProductListItem
+            product={item}
+            key={idx}
+            // targetRef={target}
+            targetRef={ref}
+          />
+        );
       })}
     </div>
   );
