@@ -94,17 +94,9 @@
   </body>
 
   <script>
-    const backIcon = document.getElementById("backIcon");
     const keywordTextField = document.getElementById("keywordTextField");
     const contentContainer = document.getElementById("contentContainer");
     const searchBtn = document.getElementById("searchBtn");
-
-    /**
-     * 뒤로가기 버튼 클릭 이벤트 핸들러
-     */
-    function handleClickBack() {
-      history.back();
-    }
 
     /**
      * 검색어 입력 이벤트 핸들러
@@ -136,17 +128,15 @@
       location.href = "detail.html";
     }
 
-    // 뒤로가기 버튼 이벤트 등록
-    backIcon.addEventListener("click", handleClickBack);
     // 검색어 입력 이벤트 등록
     keywordTextField.addEventListener("input", handleChangeKeyword);
     // 검색 버튼 클릭 이벤트 등록
     searchBtn.addEventListener("click", handleClickSearch);
-
-    // 아이템 클릭 이벤트 등록
-    const items = document.querySelectorAll(".item");
-    items.forEach((item) => {
-      item.addEventListener("click", handleClickItem);
-    });
   </script>
+
+  <!-- 뒤로가기 기능 -->
+  <script src="../assets/js/back.js"></script>
+
+  <!-- 컨텐츠 아이템 클릭 기능 -->
+  <script src="../assets/js/contentForm.js"></script>
 </html>
