@@ -167,7 +167,7 @@ const ProductList = ({ products }) => {
   // });
 
   return (
-    <div>
+    <div style={{ height: "auto", minHeight: "100vh", paddingBottom: "60px" }}>
       {viewProducts.map((item, idx) => {
         return (
           <ProductListItem
