@@ -14,8 +14,12 @@
         <img src="../assets/icon/back.svg" alt="로고" />
       </a>
       <div class="search-container">
-        <input type="text" placeholder="검색어를 입력해주세요." />
-        <div class="icons">
+        <input
+          id="keywordTextField"
+          type="text"
+          placeholder="검색어를 입력해주세요."
+        />
+        <div id="searchBtn" class="icons">
           <span id="search-icon" class="icon">
             <img src="../assets/icon/search.svg" class="search" alt="검색" />
           </span>
@@ -23,76 +27,126 @@
       </div>
     </header>
 
-    <div class="mini-title">검색 결과</div>
-    <!-- 메인 : 컨텐츠 리스트 영역 -->
-    <div class="container">
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">박희연이 준 z플립5 팝니다..!</div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">늦은 밤 너의 집 앞 골목길에서</div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">
-          오래되었어 그 때 너의 웃음 너의 목소리 잊혀진것같아
+    <!-- 검색어 추천 -->
+    <div id="suggest-keyword" class="dropdown-suggest">
+      <h3 class="suggest-title">추천 검색어</h3>
+      <p href="#" class="dropdown-item">닌텐도 13</p>
+      <p href="#" class="dropdown-item">닌텐도 주세요</p>
+      <p href="#" class="dropdown-item">닌텐도 하고싶다</p>
+      <p href="#" class="dropdown-item">닌텐도 하고싶다1</p>
+      <p href="#" class="dropdown-item">닌텐도 하고싶다2</p>
+      <p href="#" class="dropdown-item">닌텐도 하고싶다3</p>
+      <p href="#" class="dropdown-item">양태욱 닌텐도 삽니다</p>
+      <p href="#" class="dropdown-item">닌텐도 가나다람바사</p>
+    </div>
+
+    <div id="contentContainer">
+      <div class="mini-title">검색 결과</div>
+      <!-- 메인 : 컨텐츠 리스트 영역 -->
+      <div class="container">
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">박희연이 준 z플립5 팝니다..!</div>
+          <div class="date">2024-02-17</div>
         </div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">
-          그런데 이게 뭐랄까 난 나 술한잔 하면서 괜찮은 듯 얘기 하며 널
-          덜어내었는데
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">늦은 밤 너의 집 앞 골목길에서</div>
+          <div class="date">2024-02-17</div>
         </div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">구찌 남자벨트 판매합니다.</div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">Mac Air 싸게 팝니다</div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">딥다이브 팝니다</div>
-        <div class="date">2024-02-17</div>
-      </div>
-      <div class="item">
-        <img src="../assets/img/sample500.png" alt="아이템" />
-        <div class="title">신입사원 구합니다 react 개발자 우대</div>
-        <div class="date">2024-02-17</div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">
+            오래되었어 그 때 너의 웃음 너의 목소리 잊혀진것같아
+          </div>
+          <div class="date">2024-02-17</div>
+        </div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">
+            그런데 이게 뭐랄까 난 나 술한잔 하면서 괜찮은 듯 얘기 하며 널
+            덜어내었는데
+          </div>
+          <div class="date">2024-02-17</div>
+        </div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">구찌 남자벨트 판매합니다.</div>
+          <div class="date">2024-02-17</div>
+        </div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">Mac Air 싸게 팝니다</div>
+          <div class="date">2024-02-17</div>
+        </div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">딥다이브 팝니다</div>
+          <div class="date">2024-02-17</div>
+        </div>
+        <div class="item">
+          <img src="../assets/img/sample500.png" alt="아이템" />
+          <div class="title">신입사원 구합니다 react 개발자 우대</div>
+          <div class="date">2024-02-17</div>
+        </div>
       </div>
     </div>
   </body>
 
   <script>
+    const backIcon = document.getElementById("backIcon");
+    const keywordTextField = document.getElementById("keywordTextField");
+    const contentContainer = document.getElementById("contentContainer");
+    const searchBtn = document.getElementById("searchBtn");
+
+    /**
+     * 뒤로가기 버튼 클릭 이벤트 핸들러
+     */
     function handleClickBack() {
-      console.log("ytw .. ? ");
       history.back();
     }
 
-    const backIcon = document.getElementById("backIcon");
+    /**
+     * 검색어 입력 이벤트 핸들러
+     */
+    function handleChangeKeyword(e) {
+      const suggestKeyword = document.getElementById("suggest-keyword");
+      const value = e.target.value;
+
+      if (value.length === 0) {
+        suggestKeyword.classList.remove("is-open");
+        return;
+      } else {
+        suggestKeyword.classList.add("is-open");
+      }
+    }
+
+    /**
+     * 검색 버튼 클릭 이벤트 핸들러
+     */
+    function handleClickSearch() {
+      const container = document.getElementById("contentContainer");
+      container.classList.add("is-open");
+    }
+
+    /**
+     * 아이템 클릭 이벤트 핸들러
+     */
+    function handleClickItem() {
+      location.href = "detail.html";
+    }
+
+    // 뒤로가기 버튼 이벤트 등록
     backIcon.addEventListener("click", handleClickBack);
-    // const searchIcon = document.getElementById("search-icon");
-    // const menu = document.getElementById("menu");
-    // const menuIcon = document.getElementById("menu-icon");
+    // 검색어 입력 이벤트 등록
+    keywordTextField.addEventListener("input", handleChangeKeyword);
+    // 검색 버튼 클릭 이벤트 등록
+    searchBtn.addEventListener("click", handleClickSearch);
 
-    // searchIcon.addEventListener("click", () => {
-    //   //   alert("검색");
-    //   location.href = "search.html";
-    // });
-
-    // menuIcon.addEventListener("click", () => {
-    //   menu.classList.toggle("is-open");
-    // });
+    // 아이템 클릭 이벤트 등록
+    const items = document.querySelectorAll(".item");
+    items.forEach((item) => {
+      item.addEventListener("click", handleClickItem);
+    });
   </script>
 </html>

@@ -57,7 +57,47 @@ header .icon {
   width: 22px;
 }
 
+/* 추천 검색어 */
+.dropdown-suggest {
+  position: fixed;
+  display: none;
+  z-index: 1;
+  /* header height + padding */
+  left: 0;
+  top: 60px;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.dropdown-suggest.is-open {
+  display: block;
+}
+
+.dropdown-suggest .suggest-title {
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.dropdown-suggest .dropdown-item {
+  font-size: 14px;
+  padding: 10px 15px;
+  color: #333333;
+  text-decoration: none;
+  display: block;
+}
+
 /* 컨텐츠 리스트 영역 */
+
+#contentContainer {
+  display: none;
+}
+
+#contentContainer.is-open {
+  display: block;
+}
+
 .mini-title {
   margin: 80px 0 0 20px;
   font-weight: bold;

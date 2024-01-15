@@ -24,7 +24,7 @@
     </header>
 
     <!-- 사이드 메뉴 -->
-    <aside id="menu" class="dropdown-menu" id="myDropdown">
+    <aside id="menu" class="dropdown-menu">
       <a href="#" class="dropdown-item">검색</a>
       <a href="#" class="dropdown-item">로그인 아이디 : 양태욱멋있어</a>
       <a href="#" class="dropdown-item">로그 아웃</a>
@@ -86,12 +86,24 @@
     const menuIcon = document.getElementById("menu-icon");
 
     searchIcon.addEventListener("click", () => {
-      //   alert("검색");
       location.href = "search.html";
     });
 
     menuIcon.addEventListener("click", () => {
       menu.classList.toggle("is-open");
+    });
+
+    /**
+     * 아이템 클릭 이벤트 핸들러
+     */
+    function handleClickItem() {
+      location.href = "detail.html";
+    }
+
+    // 아이템 클릭 이벤트 등록
+    const items = document.querySelectorAll(".item");
+    items.forEach((item) => {
+      item.addEventListener("click", handleClickItem);
     });
   </script>
 </html>
