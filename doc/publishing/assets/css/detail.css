@@ -1,16 +1,8 @@
 /* 헤더 영역 */
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: calc(100% - 30px);
-  height: 30px;
-  background-color: #fff;
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 9999;
 }
 
 header .back {
@@ -157,6 +149,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   z-index: 9999;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
 }
 
 footer .like {
