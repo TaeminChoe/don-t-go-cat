@@ -1,11 +1,12 @@
-const ProductListItem = ({ product, targetRef }) => {
+const ProductListItem = ({ product, targetRef, idx }) => {
   const { title, img, date } = product;
 
   return (
     <div>
       <div style={{ float: "left", width: "200px" }} ref={targetRef}>
-        <div>
-          <img src={img} width="200px" />
+        <div style={{ color: "blue", fontSize: "20px" }}>
+          {/* <img src={img} width="200px" /> */}
+          {idx}
         </div>
         <div>
           <span>{title}</span>

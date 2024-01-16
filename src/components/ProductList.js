@@ -130,18 +130,33 @@ const ProductList = ({ products }) => {
   ]);
 
   // intersection-observer 라이브러리 사용
-  const [ref, inView] = useInView();
+  // const [ref, inView] = useInView();
 
-  useEffect(() => {
-    if (inView) {
-      loadMore();
-    }
-  }, [inView]);
+  // useEffect(() => {
+  //   if (inView) {
+  //     loadMore();
+  //   }
+  // }, [inView]);
 
   // intersection-observer api 사용
-  // useEffect(() => {
-  //   if (!!target.current) observer.observe(target.current);
-  // }, [target.current]);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return; // entry가 interscting 중이 아니라면 함수를 실행하지 않음
+
+        // 실행할 함수
+        loadMore();
+        // 실행 후 타겟 엘리먼트에 대한 관찰 중지
+        observer.unobserve(target.current);
+      });
+    });
+
+    if (!!target.current) observer.observe(target.current);
+    // return () => {
+    // 모든 관찰 중지
+    //   observer.disconnect();
+    // };
+  }, [viewProducts]);
 
   // 스크롤 뷰포트에 닿을 때 실행할 함수(다음 리스트 가져오기)
   const loadMore = () => {
@@ -156,16 +171,6 @@ const ProductList = ({ products }) => {
     setPreId(preId + 20);
   };
 
-  // intersection-observer api 사용
-  // const observer = new IntersectionObserver((entries) => {
-  //   entries.forEach((entry) => {
-  //     if (!entry.isIntersecting) return; // entry가 interscting 중이 아니라면 함수를 실행하지 않음
-
-  //     // 실행할 함수
-  //     loadMore();
-  //   });
-  // });
-
   return (
     <div style={{ height: "auto", minHeight: "100vh", paddingBottom: "60px" }}>
       {viewProducts.map((item, idx) => {
@@ -173,8 +178,9 @@ const ProductList = ({ products }) => {
           <ProductListItem
             product={item}
             key={idx}
-            // targetRef={target}
-            targetRef={ref}
+            targetRef={idx === viewProducts.length - 1 ? target : null}
+            idx={idx}
+            // targetRef={ref}
           />
         );
       })}
