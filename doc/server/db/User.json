@@ -1,0 +1,52 @@
+[
+  {
+    "userId": 1,
+    "id": "seller1",
+    "password": "1234"
+  },
+  {
+    "userId": 2,
+    "id": "seller2",
+    "password": "1234"
+  },
+  {
+    "userId": 3,
+    "id": "seller3",
+    "password": "1234"
+  },
+  {
+    "userId": 4,
+    "id": "seller4",
+    "password": "1234"
+  },
+  {
+    "userId": 5,
+    "id": "seller5",
+    "password": "1234"
+  },
+  {
+    "userId": 6,
+    "id": "seller6",
+    "password": "1234"
+  },
+  {
+    "userId": 7,
+    "id": "seller7",
+    "password": "1234"
+  },
+  {
+    "userId": 8,
+    "id": "seller8",
+    "password": "1234"
+  },
+  {
+    "userId": 9,
+    "id": "seller9",
+    "password": "1234"
+  },
+  {
+    "userId": 10,
+    "id": "seller10",
+    "password": "1234"
+  }
+]
