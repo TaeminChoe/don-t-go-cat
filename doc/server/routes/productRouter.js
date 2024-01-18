@@ -7,6 +7,7 @@ const router = express.Router();
 const responseCode = require("../Constant/responseCode");
 const ApiResultDTO = require("../DTO/ApiResultDTO");
 const { commonErrorHandler } = require("../utils");
+const allKeyword = require("../Constant/keyword");
 /**
  * 상품 리스트 조회
  * [GET] - {PUBLIC_URL}/product/list
@@ -52,6 +53,35 @@ router.get("/detail", async (req, res) => {
     res.json(
       new ApiResultDTO(responseCode.SUCCESS, result, "상품 상세 조회 성공")
     );
+  } catch (error) {
+    commonErrorHandler(res);
+  }
+});
+
+/**
+ * 상품 키워드 조회 : 상품명에서 키워드를 추출하여 반환
+ * [GET] - {PUBLIC_URL}/product/keyword
+ * @param {String} keyword - 키워드
+ */
+router.get("/keyword", async (req, res) => {
+  try {
+    const { keyword } = req.query;
+
+    // 예외처리 1. 키워드 누락 : 별도 에러 처리 하지않고 빈 배열 반환
+    if (!keyword) {
+      res.json(new ApiResultDTO(responseCode.SUCCESS, [], "키워드 조회"));
+
+      return false;
+    }
+    const keywordList = allKeyword
+      .filter((item) => item.includes(keyword))
+      .slice(0, 100);
+    const resultDTO = new ApiResultDTO(
+      responseCode.SUCCESS,
+      keywordList,
+      "키워드 조회"
+    );
+    res.json(resultDTO);
   } catch (error) {
     commonErrorHandler(res);
   }
