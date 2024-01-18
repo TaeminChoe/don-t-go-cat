@@ -7,9 +7,11 @@ import {
 
 import routes from "./system/router";
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
-import Layout from "components/Layout";
+import ModalContainer from "modal/ModalContainer";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { isOpen, content } = useSelector((state) => state.modalReducer);
   // 로그인 여부 권한 체크 -> 추후 전역 상태관리로 이동해야 함
   const checkAuth = () => {
     // return true;
@@ -46,6 +48,7 @@ function App() {
           />
         </Switch>
       </Router>
+      {isOpen && <ModalContainer content={content} />}
     </div>
   );
 }
