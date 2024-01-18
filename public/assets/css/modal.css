@@ -1,15 +1,10 @@
 .modal-container {
   position: fixed;
-  display: none;
+  display: block;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
-}
-
-.modal-container.show {
-  display: block;
 }
 
 .modal-container .background {
