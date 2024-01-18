@@ -1,13 +1,13 @@
-import HeaderDetail from "components/HeaderDetail";
-import CustomHeaderLayout from "components/Layout";
+import HeaderBack from "components/HeaderBack";
+import Layout from "components/Layout";
 
 const ProductDetail = () => {
   return (
-    <CustomHeaderLayout Header={HeaderDetail}>
+    <Layout CustomHeader={HeaderBack}>
       <div>
         <h1>Product Detail</h1>
       </div>
-    </CustomHeaderLayout>
+    </Layout>
   );
 };
 

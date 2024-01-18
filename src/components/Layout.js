@@ -1,15 +1,16 @@
 import Footer from "./Footer";
+import Header from "./Header";
 
-const CustomHeaderLayout = ({ children = () => <></>, Header }) => {
-  const isHeader = !!Header;
+const Layout = ({ children = () => <></>, CustomHeader }) => {
+  const isHeader = !!CustomHeader;
 
   return (
     <>
-      {isHeader && <Header />}
+      {isHeader ? <CustomHeader /> : <Header />}
       {children}
       <Footer />
     </>
   );
 };
 
-export default CustomHeaderLayout;
+export default Layout;

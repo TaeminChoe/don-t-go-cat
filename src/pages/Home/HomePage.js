@@ -1,7 +1,6 @@
 import { apiTest } from "utils/api";
 
-import HeaderMain from "components/HeaderMain";
-import CustomHeaderLayout from "components/Layout";
+import Layout from "components/Layout";
 
 const HomePage = () => {
   const handleClick = () => {
@@ -9,12 +8,12 @@ const HomePage = () => {
   };
 
   return (
-    <CustomHeaderLayout Header={HeaderMain}>
+    <Layout>
       <h1>Home Page</h1>
       <button type="button" onClick={handleClick}>
         API 테스트
       </button>
-    </CustomHeaderLayout>
+    </Layout>
   );
 };
 export default HomePage;

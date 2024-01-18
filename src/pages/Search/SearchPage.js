@@ -1,13 +1,13 @@
 import HeaderSearch from "components/HeaderSearch";
-import CustomHeaderLayout from "components/Layout";
+import Layout from "components/Layout";
 
 const SearchPage = () => {
   return (
-    <CustomHeaderLayout Header={HeaderSearch}>
+    <Layout CustomHeader={HeaderSearch}>
       <div>
         <h1>SearchPage</h1>
       </div>
-    </CustomHeaderLayout>
+    </Layout>
   );
 };
 

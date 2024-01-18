@@ -21,13 +21,7 @@ function App() {
       <Router basename={BASENAME}>
         <Switch>
           {routes.map((route, index) => {
-            const {
-              path,
-              component: Component,
-              exact,
-              isPrivate,
-              headerType = "",
-            } = route;
+            const { path, component: Component, exact, isPrivate } = route;
 
             return (
               <Route
@@ -39,9 +33,7 @@ function App() {
                   isPrivate ? (
                     // 로그인 여부에 따라 페이지를 렌더링
                     checkAuth() ? (
-                      <Layout headerType={headerType}>
-                        <Component {...props} />
-                      </Layout>
+                      <Component {...props} />
                     ) : (
                       // 권한이 없는 경우 로그인 페이지로 리다이렉트
                       <Redirect to={URL_LOGIN} />
