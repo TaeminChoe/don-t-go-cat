@@ -32,7 +32,7 @@ const routes = [
     isPrivate: true,
   },
   {
-    path: URL.URL_PRODUCT_DETAIL,
+    path: `${URL.URL_PRODUCT_DETAIL}/:id`,
     exact: false,
     name: "상품상세",
     component: ProductDetail,
