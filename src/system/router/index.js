@@ -50,7 +50,6 @@ const routes = [
     exact: true,
     name: "알수 없는 경로",
     component: NotFound,
-    isPrivate: false,
   },
 ];
 
