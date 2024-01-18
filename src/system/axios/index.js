@@ -10,11 +10,14 @@ let loadingCounter = 0;
 // axios응답 요청시 해당 callback이 먼저 실행됨.
 axiosInstance.interceptors.request.use(
   (config) => {
-    if (loadingCounter === 0) {
-      // 전역에서 관리하는 loading호출 로직 추가할 것.
+    const { useLoading } = config;
+    if (useLoading) {
+      if (loadingCounter === 0) {
+        // 전역에서 관리하는 loading호출 로직 추가할 것.
+      }
+      loadingCounter++;
+      console.log("Request started", loadingCounter);
     }
-    loadingCounter++;
-    console.log("Request started", loadingCounter);
     return config;
   },
   (error) => {
@@ -26,17 +29,27 @@ axiosInstance.interceptors.request.use(
 // axios응답 반환받을시 해당 callback이 먼저 실행됨.
 axiosInstance.interceptors.response.use(
   (response) => {
-    loadingCounter--;
-    if (loadingCounter === 0) {
-      // 전역에서 관리하는 loading hide로직 추가할 것.
+    const {
+      config: { useLoading },
+    } = response;
+    if (useLoading) {
+      loadingCounter--;
+      if (loadingCounter === 0) {
+        // 전역에서 관리하는 loading hide로직 추가할 것.
+      }
+      console.log("Response success", loadingCounter);
     }
-    console.log("Response success", loadingCounter);
     return response;
   },
   (error) => {
     // 응답이 실패했을 때 실행됩니다.
-    loadingCounter--;
-    console.log("Response failed", loadingCounter);
+    const {
+      config: { useLoading },
+    } = error;
+    if (useLoading) {
+      loadingCounter--;
+      console.log("Response failed", loadingCounter);
+    }
     return Promise.reject(error);
   }
 );
