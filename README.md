@@ -45,7 +45,7 @@ import ProductDetail from "pages/ProductDetail/ProductDetailPage";
 export const URL_HOME = "/";
 export const URL_LOGIN = "/login";
 export const URL_NOT_FOUND = "/not-found";
-export const URL_PRODUCT_DETAIL = "/product-detail/:id";
+export const URL_PRODUCT_DETAIL = "/product-detail";
 // ... 추가 URL 선언
 ```
 
@@ -58,7 +58,9 @@ const routes = [
     exact: true,
     name: "로그인",
     component: LoginPage,
+    // true : 권한이있어야 접근 가능, false : 권한이없어야 접근 가능
     isPrivate: false,
+    // isPrivate가 없는 경우, 권한과 관계없이 접근 가능
   },
   ... route객체 추가
 ]
