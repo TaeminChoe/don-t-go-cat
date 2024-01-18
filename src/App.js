@@ -21,7 +21,13 @@ function App() {
       <Router basename={BASENAME}>
         <Switch>
           {routes.map((route, index) => {
-            const { path, component: Component, exact, isPrivate } = route;
+            const {
+              path,
+              component: Component,
+              exact,
+              isPrivate,
+              headerType = "",
+            } = route;
 
             return (
               <Route
@@ -33,7 +39,7 @@ function App() {
                   isPrivate ? (
                     // 로그인 여부에 따라 페이지를 렌더링
                     checkAuth() ? (
-                      <Layout>
+                      <Layout headerType={headerType}>
                         <Component {...props} />
                       </Layout>
                     ) : (

@@ -4,6 +4,7 @@ import NotFound from "NotFound";
 import HomePage from "pages/Home/HomePage";
 import LoginPage from "pages/Login/LoginPage";
 import ProductDetail from "pages/ProductDetail/ProductDetailPage";
+import Search from "pages/Search/SearchPage";
 
 /**
  * route 설정 객체
@@ -12,6 +13,7 @@ import ProductDetail from "pages/ProductDetail/ProductDetailPage";
  * @param name : [string] 라우팅 되는 페이지의 구분명
  * @param component : [Component] 표출될 페이지 컴포넌트
  * @param isPrivate : [boolean] true일때 로그인 된 상태에서만 접근가능한 페이지가 됨
+ * @param headerType : [string] 화면에 따라 header 다르게 적용
  */
 
 const routes = [
@@ -28,6 +30,7 @@ const routes = [
     name: "메인",
     component: HomePage,
     isPrivate: true,
+    headerType: "main",
   },
   {
     path: URL.URL_PRODUCT_DETAIL,
@@ -35,6 +38,15 @@ const routes = [
     name: "상품상세",
     component: ProductDetail,
     isPrivate: true,
+    headerType: "detail",
+  },
+  {
+    path: URL.URL_SEARCH,
+    exact: false,
+    name: "검색",
+    component: Search,
+    isPrivate: true,
+    headerType: "search",
   },
   {
     path: URL.URL_NOT_FOUND,

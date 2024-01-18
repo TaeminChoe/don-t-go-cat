@@ -1,10 +1,14 @@
 import Footer from "./Footer";
-import Header from "./Header";
+import HeaderDetail from "./HeaderDetail";
+import HeaderMain from "./HeaderMain";
+import HeaderSearch from "./HeaderSearch";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, headerType }) => {
   return (
     <div>
-      <Header />
+      {headerType === "main" && <HeaderMain />}
+      {headerType === "detail" && <HeaderDetail />}
+      {headerType === "search" && <HeaderSearch />}
       {children}
       <Footer />
     </div>
