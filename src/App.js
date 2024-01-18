@@ -11,12 +11,11 @@ import ModalContainer from "modal/ModalContainer";
 import { useSelector } from "react-redux";
 
 function App() {
-  const { isOpen, content } = useSelector((state) => state.modalReducer);
-  // 로그인 여부 권한 체크 -> 추후 전역 상태관리로 이동해야 함
-  const checkAuth = () => {
-    // return true;
-    return false;
-  };
+  const { checkAuth } = useSelector((state) => state.authReducer);
+  const { isOpen, content, clickAction } = useSelector(
+    (state) => state.modalReducer
+  );
+
   return (
     <div className="App">
       <Router basename={BASENAME}>
@@ -31,9 +30,9 @@ function App() {
                 exact={exact}
                 render={(props) => {
                   // 권한이 필요한 페이지 분기 처리
-                  if (isPrivate === true && !checkAuth()) {
+                  if (isPrivate === true && !checkAuth) {
                     return <Redirect to={URL_LOGIN} />;
-                  } else if (isPrivate === false && checkAuth()) {
+                  } else if (isPrivate === false && checkAuth) {
                     return <Redirect to={URL_HOME} />;
                   } else {
                     return <Component {...props} />;
@@ -48,7 +47,7 @@ function App() {
           />
         </Switch>
       </Router>
-      {isOpen && <ModalContainer content={content} />}
+      {isOpen && <ModalContainer content={content} clickAction={clickAction} />}
     </div>
   );
 }
