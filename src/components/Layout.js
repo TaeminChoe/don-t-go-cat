@@ -2,6 +2,7 @@ import Header from "./Header";
 
 const Layout = ({
   children = () => <></>,
+  id = "",
   className = "",
   CustomHeader,
   HeaderOptions = {},
@@ -12,7 +13,7 @@ const Layout = ({
   const isFooter = !!CustomFooter;
 
   return (
-    <div className={className}>
+    <div className={className} id={id}>
       {isHeader ? <CustomHeader {...HeaderOptions} /> : <Header />}
       {children}
       {isFooter ? <CustomFooter {...FooterOptions} /> : <></>}
