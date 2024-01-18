@@ -1,7 +1,8 @@
 const { UKNOW_ERROR } = require("./Constant/responseCode");
 const ApiResultDTO = require("./DTO/ApiResultDTO");
 
-function commonErrorHandler(res) {
+function commonErrorHandler(res, error) {
+  console.log(error);
   const result = new ApiResultDTO(
     UKNOW_ERROR,
     {},

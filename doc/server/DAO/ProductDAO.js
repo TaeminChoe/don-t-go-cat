@@ -2,6 +2,7 @@ const ProductDTO = require("../DTO/ProductDTO");
 const ProductDetailDTO = require("../DTO/ProductDetailDTO");
 const BASE_MOCK_PRODUCT_LIST = require("../db/Product.json");
 const DAO = require("./DAO");
+const UserDAO = require("./UserDAO");
 
 /**
  * @description 상품DAO 클래스입니다.
@@ -13,14 +14,16 @@ class ProductDAO extends DAO {
   /**
    * @description 상품 리스트 조회 기능
    * @param {String} category - 카테고리
-   * @param {String} categoryValue - 카테고리 조회값
+   * @param {String} keyword - 키워드 ( 키워드 조회시 사용 )
+   * @param {Number} userId - 유저 아이디 ( 판매자 조회시 사용 )
    * @param {Number} cursor - 커서
    * @param {Number} count - 조회 개수
    * @returns {Array}
    */
   getProductList({
     category, // 카테고리
-    categoryValue, // 카테고리 조회값
+    keyword, // 카테고리 조회값
+    userId, // 유저 아이디
     cursor, // 커서
     count, // 조회 개수
   }) {
@@ -34,13 +37,13 @@ class ProductDAO extends DAO {
       // title / description 기반 검색
       else if (category === "keyword") {
         return (
-          item.title.toUpperCase().includes(categoryValue.toUpperCase()) ||
-          item.description.toUpperCase().includes(categoryValue.toUpperCase())
+          item.title.toUpperCase().includes(keyword.toUpperCase()) ||
+          item.description.toUpperCase().includes(keyword.toUpperCase())
         );
       }
       // CASE3. 판매자 기반 조회
-      else if (category === "nickname") {
-        return item.sellerNickname === categoryValue;
+      else if (category === "user") {
+        return item.userId === parseInt(userId);
       }
     };
 
@@ -55,7 +58,11 @@ class ProductDAO extends DAO {
    * @returns
    */
   getDetail(id) {
-    return new ProductDetailDTO(super.get(id));
+    const productDTO = new ProductDetailDTO(super.get(id));
+    const userInfo = new UserDAO().getUserInfo({ id: productDTO.userId });
+
+    productDTO.setSeller(userInfo);
+    return productDTO;
   }
 }
 

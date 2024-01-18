@@ -10,15 +10,27 @@ class ProductDetailDTO extends ProductDTO {
     date,
     bannerImages,
     description,
-    sellectNickname,
+    sellerNickname,
+    userId,
     favoriteYn,
     price,
   }) {
     super({ id, title, date, bannerImages });
-    this.sellectNickname = sellectNickname;
+    this.sellerNickname = sellerNickname;
+    this.userId = userId;
     this.favoriteYn = favoriteYn;
     this.price = price;
     this.description = description;
+    this.seller = {};
+  }
+
+  setSeller(seller) {
+    this.seller = {
+      id: seller.id,
+      nickname: seller.nickname,
+      score: seller.score,
+      profileImage: seller.profileImage,
+    };
   }
 }
 

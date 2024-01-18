@@ -28,6 +28,22 @@ class UserDAO extends DAO {
       return token;
     }
   }
+
+  /**
+   *
+   * @param {Number} id - 유저 아이디
+   * @returns {Object} user 정보
+   */
+  getUserInfo({ id }) {
+    const user = super.get(id);
+
+    // 예외 처리 : 일치하는 회원 데이터 없을 경우 공백 반환
+    if (!user) {
+      return {};
+    } else {
+      return user;
+    }
+  }
 }
 
 module.exports = UserDAO;

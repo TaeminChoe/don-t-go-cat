@@ -14,7 +14,8 @@ const allKeyword = require("../Constant/keyword");
  * @param {Number} cursor - 커서
  * @param {Number} count - 조회 개수
  * @param {String} category - 카테고리
- * @param {String} categoryValue - 카테고리 조회값
+ * @param {String} keyword - 키워드 ( 키워드 조회시 사용 )
+ * @param {Number} userId - 유저 아이디 ( 판매자 조회시 사용 )
  */
 router.get("/list", async (req, res) => {
   const param = req.query;
@@ -28,7 +29,7 @@ router.get("/list", async (req, res) => {
       )
     );
   } catch (e) {
-    commonErrorHandler(res);
+    commonErrorHandler(res, e);
   }
 });
 
@@ -39,7 +40,8 @@ router.get("/list", async (req, res) => {
  */
 router.get("/detail", async (req, res) => {
   try {
-    const id = req.query.param.id;
+    const id = req.query.id;
+    console.log("ytw product ? ", id);
     // 예외처리 1. 필수값 누락
     if (!id) {
       res
@@ -48,13 +50,14 @@ router.get("/detail", async (req, res) => {
     }
 
     const productDAO = new ProductDAO();
+    // const userInfo = req.userInfo;x
     const result = productDAO.getDetail(parseInt(id));
 
     res.json(
       new ApiResultDTO(responseCode.SUCCESS, result, "상품 상세 조회 성공")
     );
   } catch (error) {
-    commonErrorHandler(res);
+    commonErrorHandler(res, error);
   }
 });
 
