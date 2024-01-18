@@ -20,6 +20,8 @@ app.get("/", (req, res) => {
 app.use("/product", require("./routes/productRouter"));
 app.use("/user", require("./routes/userRouter"));
 
+app.use("/test", require("./routes/testRouter"));
+
 app.listen(port, () => {
   console.log("서버 실행.... port : " + port);
 });
