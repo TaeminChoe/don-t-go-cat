@@ -4,11 +4,7 @@ import DetailFooter from "./component/DetailFooter";
 
 const ProductDetail = () => {
   return (
-    <Layout
-      className={"detailPage"}
-      CustomHeader={HeaderBack}
-      CustomFooter={DetailFooter}
-    >
+    <Layout id={"detail"} CustomHeader={HeaderBack} CustomFooter={DetailFooter}>
       {/* <!-- 배너 영역 : 라이브러리 적용 하십쇼 --> */}
       <div className="banner">
         <img src="../assets/img/sample500.png" alt="배너" />
@@ -51,7 +47,7 @@ const ProductDetail = () => {
       </div>
 
       {/* <!-- 판매자의 다른 상품 : 폼 재활용 --> */}
-      <div id="contentContainer">
+      <div>
         <div className="mini-title">판매자의 다른 상품</div>
         <div className="container">
           <div className="item">
