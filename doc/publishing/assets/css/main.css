@@ -1,11 +1,11 @@
 /* 메인 헤더 영역 */
-header {
+#mainHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-header .logo {
+#mainHeader .logo {
   color: #000000;
   width: 60px;
   font-size: 24px;
@@ -17,7 +17,7 @@ header .logo {
   width: 100%;
 }
 
-header .icons {
+#mainHeader .icons {
   display: flex;
   align-items: center;
 }
@@ -45,7 +45,7 @@ aside .dropdown-item {
   display: block;
 }
 
-header .icon {
+#mainHeader .icon {
   font-size: 30px;
   color: #000000;
   margin: 0px 8px;
