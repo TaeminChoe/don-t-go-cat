@@ -30,15 +30,13 @@ const routes = [
     name: "메인",
     component: HomePage,
     isPrivate: true,
-    headerType: "main",
   },
   {
-    path: URL.URL_PRODUCT_DETAIL,
+    path: `${URL.URL_PRODUCT_DETAIL}/:id`,
     exact: false,
     name: "상품상세",
     component: ProductDetail,
     isPrivate: true,
-    headerType: "detail",
   },
   {
     path: URL.URL_SEARCH,
@@ -46,14 +44,12 @@ const routes = [
     name: "검색",
     component: Search,
     isPrivate: true,
-    headerType: "search",
   },
   {
     path: URL.URL_NOT_FOUND,
     exact: true,
     name: "알수 없는 경로",
     component: NotFound,
-    isPrivate: false,
   },
 ];
 

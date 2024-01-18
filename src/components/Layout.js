@@ -1,17 +1,15 @@
 import Footer from "./Footer";
-import HeaderDetail from "./HeaderDetail";
-import HeaderMain from "./HeaderMain";
-import HeaderSearch from "./HeaderSearch";
+import Header from "./Header";
 
-const Layout = ({ children, headerType }) => {
+const Layout = ({ children = () => <></>, CustomHeader }) => {
+  const isHeader = !!CustomHeader;
+
   return (
-    <div>
-      {headerType === "main" && <HeaderMain />}
-      {headerType === "detail" && <HeaderDetail />}
-      {headerType === "search" && <HeaderSearch />}
+    <>
+      {isHeader ? <CustomHeader /> : <Header />}
       {children}
       <Footer />
-    </div>
+    </>
   );
 };
 

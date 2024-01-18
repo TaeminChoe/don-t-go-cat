@@ -1,11 +1,18 @@
+import { BASENAME } from "system/URL";
+import { useHistory } from "react-router-dom";
+
 const HeaderSearch = () => {
+  const nav = useHistory();
+
+  const handleGoBack = (e) => {
+    e.preventDefault();
+    nav.goBack();
+  };
+
   return (
     <header id="searchHeader">
-      <a className="back" id="backIcon">
-        <img
-          src={`${process.env.PUBLIC_URL}/assets/icon/back.svg`}
-          alt="로고"
-        />
+      <a className="back" id="backIcon" onClick={handleGoBack}>
+        <img src={`${BASENAME}/assets/icon/back.svg`} alt="뒤로가기" />
       </a>
       <div className="search-container">
         <input
@@ -16,7 +23,7 @@ const HeaderSearch = () => {
         <div id="searchBtn" className="icons">
           <span id="search-icon" className="icon">
             <img
-              src={`${process.env.PUBLIC_URL}/assets/icon/search.svg`}
+              src={`${BASENAME}/assets/icon/search.svg`}
               className="search"
               alt="검색"
             />
