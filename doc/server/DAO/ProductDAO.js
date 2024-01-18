@@ -2,6 +2,7 @@ const ProductDTO = require("../DTO/ProductDTO");
 const ProductDetailDTO = require("../DTO/ProductDetailDTO");
 const BASE_MOCK_PRODUCT_LIST = require("../db/Product.json");
 const DAO = require("./DAO");
+const FavoriteDAO = require("./FavoriteDAO");
 const UserDAO = require("./UserDAO");
 
 /**
@@ -58,10 +59,18 @@ class ProductDAO extends DAO {
    * @returns
    */
   getDetail(id) {
-    const productDTO = new ProductDetailDTO(super.get(id));
-    const userInfo = new UserDAO().getUserInfo({ id: productDTO.userId });
+    const product = super.get(id);
+    const user = new UserDAO().getUserInfo({ id: product.userId });
+    const favoriteYn = new FavoriteDAO().getIsFavorite({
+      userId: 1,
+      productId: id,
+    });
 
-    productDTO.setSeller(userInfo);
+    const productDTO = new ProductDetailDTO({
+      ...product,
+      seller: user,
+      favoriteYn,
+    });
     return productDTO;
   }
 }

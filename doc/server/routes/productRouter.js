@@ -8,6 +8,7 @@ const responseCode = require("../Constant/responseCode");
 const ApiResultDTO = require("../DTO/ApiResultDTO");
 const { commonErrorHandler } = require("../utils");
 const allKeyword = require("../Constant/keyword");
+const FavoriteDAO = require("../DAO/FavoriteDAO");
 /**
  * 상품 리스트 조회
  * [GET] - {PUBLIC_URL}/product/list
@@ -50,7 +51,6 @@ router.get("/detail", async (req, res) => {
     }
 
     const productDAO = new ProductDAO();
-    // const userInfo = req.userInfo;x
     const result = productDAO.getDetail(parseInt(id));
 
     res.json(
@@ -87,6 +87,82 @@ router.get("/keyword", async (req, res) => {
     res.json(resultDTO);
   } catch (error) {
     commonErrorHandler(res);
+  }
+});
+
+/**
+ * 즐겨찾기 등록
+ * [POST] - {PUBLIC_URL}/product/favorite
+ */
+router.post("/favorite", async (req, res) => {
+  try {
+    const { userId, productId } = req.body;
+
+    // 예외처리 1. 필수값 누락
+    if (!userId || !productId) {
+      res
+        .status(400)
+        .json(new ApiResultDTO(responseCode.REQUIRED_EMPTY, {}, "필수값 누락"));
+
+      return false;
+    }
+
+    const favoriteDAO = new FavoriteDAO();
+    favoriteDAO.addFavorite({ userId, productId });
+
+    res.json(new ApiResultDTO(responseCode.SUCCESS, {}, "즐겨찾기 등록 성공"));
+  } catch (error) {
+    if (error.message === responseCode.ALREADY_FAVORITE) {
+      res
+        .status(400)
+        .json(
+          new ApiResultDTO(
+            responseCode.ALREADY_FAVORITE,
+            {},
+            "이미 즐겨찾기 등록됨"
+          )
+        );
+    } else {
+      commonErrorHandler(res, error);
+    }
+  }
+});
+
+/**
+ * 즐겨찾기 삭제
+ * [DELETE] - {PUBLIC_URL}/product/favorite
+ */
+router.delete("/favorite", async (req, res) => {
+  try {
+    const { userId, productId } = req.body;
+
+    // 예외처리 1. 필수값 누락
+    if (!userId || !productId) {
+      res
+        .status(400)
+        .json(new ApiResultDTO(responseCode.REQUIRED_EMPTY, {}, "필수값 누락"));
+
+      return false;
+    }
+
+    const favoriteDAO = new FavoriteDAO();
+    favoriteDAO.deleteFavorite({ userId, productId });
+
+    res.json(new ApiResultDTO(responseCode.SUCCESS, {}, "즐겨찾기 삭제 성공"));
+  } catch (error) {
+    if (error.message === responseCode.ALREADY_UN_FAVORITE) {
+      res
+        .status(400)
+        .json(
+          new ApiResultDTO(
+            responseCode.ALREADY_UN_FAVORITE,
+            {},
+            "이미 즐겨찾기 삭제됨"
+          )
+        );
+    } else {
+      commonErrorHandler(res, error);
+    }
   }
 });
 
