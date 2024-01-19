@@ -25,8 +25,8 @@ class ProductDAO extends DAO {
     category, // 카테고리
     keyword, // 카테고리 조회값
     userId, // 유저 아이디
-    cursor, // 커서
-    count, // 조회 개수
+    cursor = 0, // 커서
+    count = 99999, // 조회 개수
   }) {
     /** 검색 조건 */
     const filterCondition = (item) => {
@@ -48,9 +48,17 @@ class ProductDAO extends DAO {
       }
     };
 
-    return super.getList(filterCondition, cursor, count).map((item) => {
-      return new ProductDTO(item);
-    });
+    // 전체 리스트 개수
+    const conditionAllList = super.getList(filterCondition);
+    const totalCount = conditionAllList.length;
+    const list = conditionAllList.slice(cursor, cursor + count);
+
+    return {
+      totalCount,
+      list: list.map((item) => {
+        return new ProductDTO(item);
+      }),
+    };
   }
 
   /**
