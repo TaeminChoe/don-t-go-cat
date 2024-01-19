@@ -64,6 +64,10 @@ aside .dropdown-item {
   margin-top: 80px;
 }
 
+#main .container.isTitle {
+  margin-top: 0;
+}
+
 #main .container .item {
   width: calc(50% - 10px); /* 50% 너비를 가지며 간격을 고려한 크기 계산 */
   margin-bottom: 20px;
