@@ -16,7 +16,7 @@ class UserDAO extends DAO {
   getToken({ id, password }) {
     const list = super.getList();
     const user = list.find(
-      (user) => user.id === id && user.password === password
+      (user) => user.nickname === id && user.password === password
     );
 
     // 예외 처리 : 일치하는 회원 데이터 없을 경우 에러 반환
