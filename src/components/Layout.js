@@ -1,14 +1,22 @@
-import Footer from "./Footer";
 import Header from "./Header";
 
-const Layout = ({ id, className, children = () => <></>, CustomHeader }) => {
+const Layout = ({
+  children = () => <></>,
+  id = "",
+  className = "",
+  CustomHeader,
+  HeaderOptions = {},
+  CustomFooter,
+  FooterOptions = {},
+}) => {
   const isHeader = !!CustomHeader;
+  const isFooter = !!CustomFooter;
 
   return (
     <div className={className} id={id}>
-      {isHeader ? <CustomHeader /> : <Header />}
+      {isHeader ? <CustomHeader {...HeaderOptions} /> : <Header />}
       {children}
-      {/* <Footer /> */}
+      {isFooter ? <CustomFooter {...FooterOptions} /> : <></>}
     </div>
   );
 };
