@@ -3,6 +3,11 @@ import Layout from "components/Layout";
 import DetailFooter from "./component/DetailFooter";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import * as DOMPurify from "dompurify";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const MOCK_DATA = {
   productId: 1,
@@ -51,12 +56,29 @@ const ProductDetail = () => {
       id={"detail"}
       CustomHeader={HeaderBack}
       CustomFooter={DetailFooter}
-      FooterOptions={{ data: MOCK_DATA }}
+      FooterOptions={{ data: productInfo }}
     >
       {/* <!-- 배너 영역 : 라이브러리 적용 하십쇼 --> */}
-      <div className="banner">
-        <img src="../assets/img/sample500.png" alt="배너" />
-      </div>
+      <Slider
+        dots
+        speed={500}
+        slidesToShow={1}
+        slidesToScroll={1}
+        arrows={false}
+      >
+        <div className="banner">
+          <img src="../assets/img/sample500.png" alt="배너" />
+        </div>
+        <div className="banner">
+          <img src="../assets/img/sample500.png" alt="배너" />
+        </div>
+        <div className="banner">
+          <img src="../assets/img/sample500.png" alt="배너" />
+        </div>
+        <div className="banner">
+          <img src="../assets/img/sample500.png" alt="배너" />
+        </div>
+      </Slider>
 
       {/* <!-- 판매자 정보 영역 --> */}
       <div className="seller-info">
@@ -82,7 +104,9 @@ const ProductDetail = () => {
         {/* <!-- 상품 정보 : 상세 설명 --> */}
         <div
           className="description"
-          dangerouslySetInnerHTML={{ __html: productInfo.content }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(productInfo.content),
+          }}
         />
       </div>
 
