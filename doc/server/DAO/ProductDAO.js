@@ -42,9 +42,10 @@ class ProductDAO extends DAO {
           item.description.toUpperCase().includes(keyword.toUpperCase())
         );
       }
+
       // CASE3. 판매자 기반 조회
       else if (category === "user") {
-        return item.userId === parseInt(userId);
+        return item.sellerNickname === userId;
       }
     };
 
