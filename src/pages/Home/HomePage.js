@@ -2,6 +2,7 @@ import { apiTest } from "utils/api";
 
 import Layout from "components/Layout";
 import ProductList from "components/ProductList";
+import Mock from "../../Mock.json";
 
 const HomePage = () => {
   const handleClick = () => {
@@ -11,7 +12,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <ProductList />
+      <ProductList products={Mock} />
     </Layout>
   );
 };

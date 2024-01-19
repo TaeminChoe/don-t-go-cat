@@ -8,7 +8,7 @@ const Layout = ({ id, className, children = () => <></>, CustomHeader }) => {
     <div className={className} id={id}>
       {isHeader ? <CustomHeader /> : <Header />}
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
