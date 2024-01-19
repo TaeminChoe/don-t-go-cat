@@ -1,19 +1,18 @@
 import { useState } from "react";
-import { showModal } from "system/common";
+import { checkInAuth, showModal } from "system/common";
 
 /** 로그인 페이지 */
 const LoginPage = () => {
   const [login, setLogin] = useState("");
   const [pwd, setPwd] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("희연 로그인 버튼 클릭");
-    // 전역상태 관리 툴 이용해서 로그인 동작
-    showModal("팝업 내용이 들어갈 자리입니다 ~");
+    showModal({ content: "등록완료 ~", clickAction: checkInAuth });
   };
   return (
-    <div>
+    <div id="login">
       <form>
         <fieldset>
           <div className="title-container">

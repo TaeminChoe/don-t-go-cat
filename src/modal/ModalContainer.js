@@ -1,6 +1,10 @@
 import ModalPortal from "./ModalPortal";
 import { hideModal } from "system/common";
-const ModalContainer = ({ content }) => {
+const ModalContainer = ({ content, clickAction }) => {
+  const confirmHandler = () => {
+    if (clickAction) clickAction();
+    hideModal();
+  };
   return (
     <ModalPortal>
       <div id="modalContainer" className="modal-container">
@@ -18,7 +22,7 @@ const ModalContainer = ({ content }) => {
             </div>
 
             <div className="button-container">
-              <button id="modal-submit-btn" onClick={hideModal}>
+              <button id="modal-submit-btn" onClick={confirmHandler}>
                 확인
               </button>
             </div>

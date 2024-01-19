@@ -1,10 +1,58 @@
 import HeaderBack from "components/HeaderBack";
 import Layout from "components/Layout";
 import DetailFooter from "./component/DetailFooter";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const MOCK_DATA = {
+  productId: 1,
+  price: 100000,
+  registDate: "2024-02-17",
+  productImages: [],
+  title: "제목 영역입니다.",
+  content: `이것은 짱짱 좋은 상품이고 <br />
+  난 너를 믿었었던 만큼 내 친구도 믿었기에 🌈
+  <br />난 아무런 부담없이 널 내 친구에게 소개시켜 줬고 <br />
+  그런 만남이 있은 후부터 우리는 자주 함께 만나며 <br />
+  즐거운 시간을 보내며 함께 어울렸던 것뿐인데 <br />
+  <br />
+  그런 만남이 어디부터 잘못됐는지 <br />난 알 수 없는 예감에 조금씩
+  빠져들고 있을때쯤 <br />넌 나보다 내 친구에게 관심을 더 보이며
+  <br />
+  <br />날 조금씩 멀리하던 그 어느 날 너와 내가 🔥`,
+};
+
+const MOCK_USERINFO = {
+  userId: "양태욱_멋있어",
+  userMannerScore: "36.0",
+};
 
 const ProductDetail = () => {
+  const { id } = useParams();
+  const [productInfo, setProductInfo] = useState(MOCK_DATA);
+
+  useEffect(() => {
+    getData();
+  });
+
+  // 이거 나중에 redux에서 처리될 거임
+  const getUserInfo = () => {
+    return MOCK_USERINFO;
+  };
+
+  const getData = () => {
+    setProductInfo(MOCK_DATA);
+  };
+
+  const { userId, userMannerScore } = getUserInfo();
+
   return (
-    <Layout id={"detail"} CustomHeader={HeaderBack} CustomFooter={DetailFooter}>
+    <Layout
+      id={"detail"}
+      CustomHeader={HeaderBack}
+      CustomFooter={DetailFooter}
+      FooterOptions={{ data: MOCK_DATA }}
+    >
       {/* <!-- 배너 영역 : 라이브러리 적용 하십쇼 --> */}
       <div className="banner">
         <img src="../assets/img/sample500.png" alt="배너" />
@@ -17,33 +65,25 @@ const ProductDetail = () => {
           <img src="../assets/img/sample500.png" />
         </div>
         {/* <!-- 판매자정보 : 아이디 --> */}
-        <div className="seller-id">양태욱_멋있어</div>
+        <div className="seller-id">{userId}</div>
         {/* <!-- 판매자정보 : 평점 --> */}
         <div className="seller-score">
           <div>매너 점수</div>
-          <div>36.0</div>
+          <div>{userMannerScore}</div>
         </div>
       </div>
 
       {/* <!-- 상품 정보 영역 --> */}
       <div className="product-info">
         {/* <!-- 상품 정보 : 제목 --> */}
-        <div className="title">제목 영역입니다.</div>
+        <div className="title">{productInfo.title}</div>
         {/* <!-- 상품 정보 : 날짜 --> */}
-        <div className="product-date">2024-02-17</div>
+        <div className="product-date">{productInfo.registDate}</div>
         {/* <!-- 상품 정보 : 상세 설명 --> */}
-        <div className="description">
-          이것은 짱짱 좋은 상품이고 <br />
-          난 너를 믿었었던 만큼 내 친구도 믿었기에 🌈
-          <br />난 아무런 부담없이 널 내 친구에게 소개시켜 줬고 <br />
-          그런 만남이 있은 후부터 우리는 자주 함께 만나며 <br />
-          즐거운 시간을 보내며 함께 어울렸던 것뿐인데 <br />
-          <br />
-          그런 만남이 어디부터 잘못됐는지 <br />난 알 수 없는 예감에 조금씩
-          빠져들고 있을때쯤 <br />넌 나보다 내 친구에게 관심을 더 보이며
-          <br />
-          <br />날 조금씩 멀리하던 그 어느 날 너와 내가 🔥
-        </div>
+        <div
+          className="description"
+          dangerouslySetInnerHTML={{ __html: productInfo.content }}
+        />
       </div>
 
       {/* <!-- 판매자의 다른 상품 : 폼 재활용 --> */}
