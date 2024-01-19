@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "nickname": "seller1",
+    "password": "1234",
+    "score": 36.5,
+    "profileImage": ""
+  },
+  {
+    "id": 2,
+    "nickname": "seller2",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 3,
+    "nickname": "seller3",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 4,
+    "nickname": "seller4",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 5,
+    "nickname": "seller5",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 6,
+    "nickname": "seller6",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 7,
+    "nickname": "seller7",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 8,
+    "nickname": "seller8",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 9,
+    "nickname": "seller9",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  },
+  {
+    "id": 10,
+    "nickname": "seller10",
+    "password": "1234",
+    "score": 36.0,
+    "profileImage": ""
+  }
+]
