@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { URL_HOME } from "system/URL";
-import { showModal } from "system/common";
+import { showConfirmModal } from "system/common";
 import { changeFormatToKR } from "./../../../utils/format";
 
 const DetailFooter = ({ data }) => {
@@ -17,7 +17,7 @@ const DetailFooter = ({ data }) => {
   }, [like]);
 
   const handleOnClick = (e) => {
-    showModal({
+    showConfirmModal({
       content: "구매하시겠습니까?",
       clickAction: () => {
         nav.push(URL_HOME);

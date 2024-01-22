@@ -1,37 +1,38 @@
 export const OPEN_MODAL = "OPEN_MODAL";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 
-export const openModal = (content, clickAction) => {
+export const openModal = (data) => {
   return {
     type: OPEN_MODAL,
-    content,
-    clickAction,
+    data,
   };
 };
 
-export const closeModal = () => {
+export const closeModal = (key) => {
   return {
     type: CLOSE_MODAL,
+    key,
   };
 };
 
 const initialState = {
-  isOpen: false,
-  content: null,
-  clickAction: null,
+  components: [],
 };
 
 const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL:
+      document.body.style.overflow = "hidden";
       return {
-        isOpen: true,
-        content: action.content,
-        clickAction: action.clickAction,
+        components: [...state.components, action.data],
       };
     case CLOSE_MODAL:
+      document.body.style.overflow = "auto";
+      const updateComponents = [
+        ...state.components.filter((component) => component.key !== action.key),
+      ];
       return {
-        ...initialState,
+        components: updateComponents,
       };
     default:
       return state;

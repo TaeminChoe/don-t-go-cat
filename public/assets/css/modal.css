@@ -1,4 +1,4 @@
-#modal .modal-container {
+.modal-container {
   position: fixed;
   display: block;
   top: 0;
@@ -7,7 +7,7 @@
   height: 100vh;
 }
 
-#modal .modal-container .background {
+.modal-container .background {
   position: absolute;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-#modal .modal-container .paper-container {
+.modal-container .paper-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-#modal .modal-container .paper-container .paper {
+.modal-container .paper-container .paper {
   width: 80vw;
   /* height: 250px; */
   background-color: white;
@@ -33,7 +33,7 @@
   border-radius: 10px;
 }
 
-#modal .modal-container .paper-container .paper .popup-header {
+.modal-container .paper-container .paper .popup-header {
   width: 100%;
   height: 40px;
   display: flex;
@@ -42,7 +42,7 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
-#modal .modal-container .paper-container .paper .popup-content {
+.modal-container .paper-container .paper .popup-content {
   width: 100%;
   height: 150px;
   display: flex;
@@ -50,7 +50,7 @@
   align-items: center;
 }
 
-#modal .modal-container .paper-container .paper .button-container {
+.modal-container .paper-container .paper .button-container {
   width: 100%;
   height: 45px;
   display: flex;
@@ -59,7 +59,7 @@
   border-top: 1px solid #e5e5e5;
 }
 
-#modal .button-container button {
+.button-container button {
   width: 130px;
   height: 30px;
   border-radius: 10px;

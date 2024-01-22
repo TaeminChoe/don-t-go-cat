@@ -12,9 +12,6 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { checkAuth } = useSelector((state) => state.authReducer);
-  const { isOpen, content, clickAction } = useSelector(
-    (state) => state.modalReducer
-  );
 
   return (
     <div className="App">
@@ -47,7 +44,7 @@ function App() {
           />
         </Switch>
       </Router>
-      {isOpen && <ModalContainer content={content} clickAction={clickAction} />}
+      <ModalContainer />
     </div>
   );
 }
