@@ -24,6 +24,8 @@ function verifyToken(req, res, next) {
   if (!token) {
     const result = new ApiResultDTO(MISSED_TOKEN, {}, "토큰이 누락되었습니다.");
     res.status(400).json(result);
+
+    return false;
   }
   const userDAO = new UserDAO();
 
@@ -34,7 +36,6 @@ function verifyToken(req, res, next) {
     if (token.startsWith(prefix)) {
       return user.token !== token.replace(prefix, "");
     }
-
     // 토큰이 Bearer로 시작하지 않을 경우
     return user.token !== token;
   });
@@ -46,6 +47,8 @@ function verifyToken(req, res, next) {
       "토큰이 유효하지 않습니다."
     );
     res.status(400).json(result);
+
+    return false;
   }
   // 정상 케이스 : 정상 진행
   else {
