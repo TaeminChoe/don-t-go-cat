@@ -9,6 +9,7 @@ const ApiResultDTO = require("../DTO/ApiResultDTO");
 const { commonErrorHandler } = require("../utils");
 const allKeyword = require("../Constant/keyword");
 const FavoriteDAO = require("../DAO/FavoriteDAO");
+const { verifyToken } = require("../utils");
 /**
  * 상품 리스트 조회
  * [GET] - {PUBLIC_URL}/product/list
@@ -18,7 +19,7 @@ const FavoriteDAO = require("../DAO/FavoriteDAO");
  * @param {String} keyword - 키워드 ( 키워드 조회시 사용 )
  * @param {Number} userId - 유저 아이디 ( 판매자 조회시 사용 )
  */
-router.get("/list", async (req, res) => {
+router.get("/list", verifyToken, async (req, res) => {
   const param = req.query;
   try {
     const productDAO = new ProductDAO();
@@ -39,15 +40,16 @@ router.get("/list", async (req, res) => {
  * [GET] - {PUBLIC_URL}/product/detail
  * @param {Number} id - 상품 id
  */
-router.get("/detail", async (req, res) => {
+router.get("/detail", verifyToken, async (req, res) => {
   try {
     const id = req.query.id;
-    console.log("ytw product ? ", id);
     // 예외처리 1. 필수값 누락
     if (!id) {
       res
         .status(400)
         .json(new ApiResultDTO(responseCode.REQUIRED_EMPTY, {}, "필수값 누락"));
+
+      return false;
     }
 
     const productDAO = new ProductDAO();
@@ -66,7 +68,7 @@ router.get("/detail", async (req, res) => {
  * [GET] - {PUBLIC_URL}/product/keyword
  * @param {String} keyword - 키워드
  */
-router.get("/keyword", async (req, res) => {
+router.get("/keyword", verifyToken, async (req, res) => {
   try {
     const { keyword } = req.query;
 
@@ -94,7 +96,7 @@ router.get("/keyword", async (req, res) => {
  * 즐겨찾기 등록
  * [POST] - {PUBLIC_URL}/product/favorite
  */
-router.post("/favorite", async (req, res) => {
+router.post("/favorite", verifyToken, async (req, res) => {
   try {
     const { userId, productId } = req.body;
 
@@ -132,7 +134,7 @@ router.post("/favorite", async (req, res) => {
  * 즐겨찾기 삭제
  * [DELETE] - {PUBLIC_URL}/product/favorite
  */
-router.delete("/favorite", async (req, res) => {
+router.delete("/favorite", verifyToken, async (req, res) => {
   try {
     const { userId, productId } = req.body;
 

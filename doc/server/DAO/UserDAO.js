@@ -38,6 +38,24 @@ class UserDAO extends DAO {
   }
 
   /**
+   *@returns {Array<UserDTO>} 유저 리스트
+   */
+  getUserList() {
+    const list = super.getList();
+    const userDTOList = list.map(
+      (user) =>
+        new UserDTO(
+          user.id,
+          user.nickname,
+          user.score,
+          user.profileImage,
+          user.token
+        )
+    );
+    return userDTOList;
+  }
+
+  /**
    *
    * @param {Number} id - 유저 아이디
    * @returns {Object} user 정보
