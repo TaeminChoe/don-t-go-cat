@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import routes from "./system/router";
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import ModalContainer from "modal/ModalContainer";
 import { useSelector } from "react-redux";
@@ -16,12 +17,13 @@ function App() {
   return (
     <div className="App">
       <Router basename={BASENAME}>
-        <Switch>
+        <CacheSwitch>
           {routes.map((route, index) => {
             const { path, component: Component, exact, isPrivate } = route;
 
+            const RouteWrap = route.cache ? CacheRoute : Route;
             return (
-              <Route
+              <RouteWrap
                 key={index}
                 path={path}
                 exact={exact}
@@ -42,7 +44,7 @@ function App() {
             path="*"
             render={(props) => <Redirect to={URL_NOT_FOUND} {...props} />}
           />
-        </Switch>
+        </CacheSwitch>
       </Router>
       <ModalContainer />
     </div>

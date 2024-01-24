@@ -13,7 +13,7 @@ import Search from "pages/Search/SearchPage";
  * @param name : [string] 라우팅 되는 페이지의 구분명
  * @param component : [Component] 표출될 페이지 컴포넌트
  * @param isPrivate : [boolean] true일때 로그인 된 상태에서만 접근가능한 페이지가 됨
- * @param headerType : [string] 화면에 따라 header 다르게 적용
+ * @param cache : [boolean] true일 때 이전 데이터 그대로 노출
  */
 
 const routes = [
@@ -30,6 +30,7 @@ const routes = [
     name: "메인",
     component: HomePage,
     isPrivate: true,
+    cache: true,
   },
   {
     path: `${URL.URL_PRODUCT_DETAIL}/:id`,
