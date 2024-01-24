@@ -70,6 +70,22 @@ class UserDAO extends DAO {
       return user;
     }
   }
+
+  /**
+   * @param {String} token - 유저 토큰
+   * @returns {Object} user 정보
+   */
+  getUserInfoByToken({ token }) {
+    const list = super.getList();
+    const user = list.find((user) => user.token === token);
+
+    // 예외 처리 : 일치하는 회원 데이터 없을 경우 공백 반환
+    if (!user) {
+      return {};
+    } else {
+      return user;
+    }
+  }
 }
 
 module.exports = UserDAO;

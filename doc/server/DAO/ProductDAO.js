@@ -67,12 +67,12 @@ class ProductDAO extends DAO {
    * @param {Number} id
    * @returns
    */
-  getDetail(id) {
-    const product = super.get(id);
+  getDetail(productId, userId) {
+    const product = super.get(productId);
     const user = new UserDAO().getUserInfo({ id: product.userId });
     const favoriteYn = new FavoriteDAO().getIsFavorite({
-      userId: 1,
-      productId: id,
+      userId,
+      productId,
     });
 
     const productDTO = new ProductDetailDTO({

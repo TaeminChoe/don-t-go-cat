@@ -10,6 +10,7 @@ const { commonErrorHandler } = require("../utils");
 const allKeyword = require("../Constant/keyword");
 const FavoriteDAO = require("../DAO/FavoriteDAO");
 const { verifyToken } = require("../utils");
+const UserDAO = require("../DAO/UserDAO");
 /**
  * 상품 리스트 조회
  * [GET] - {PUBLIC_URL}/product/list
@@ -51,9 +52,11 @@ router.get("/detail", verifyToken, async (req, res) => {
 
       return false;
     }
+    const token = req.header("Authorization");
 
+    const userIinfo = new UserDAO().getUserInfoByToken({ token });
     const productDAO = new ProductDAO();
-    const result = productDAO.getDetail(parseInt(id));
+    const result = productDAO.getDetail(parseInt(id), userIinfo.id);
 
     res.json(
       new ApiResultDTO(responseCode.SUCCESS, result, "상품 상세 조회 성공")
@@ -98,10 +101,12 @@ router.get("/keyword", verifyToken, async (req, res) => {
  */
 router.post("/favorite", verifyToken, async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const { productId } = req.body;
+    const token = req.header("Authorization");
+    const userId = new UserDAO().getUserInfoByToken({ token }).id;
 
     // 예외처리 1. 필수값 누락
-    if (!userId || !productId) {
+    if (!productId) {
       res
         .status(400)
         .json(new ApiResultDTO(responseCode.REQUIRED_EMPTY, {}, "필수값 누락"));
@@ -136,10 +141,12 @@ router.post("/favorite", verifyToken, async (req, res) => {
  */
 router.delete("/favorite", verifyToken, async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    const { productId } = req.body;
+    const token = req.header("Authorization");
+    const userId = new UserDAO().getUserInfoByToken({ token }).id;
 
     // 예외처리 1. 필수값 누락
-    if (!userId || !productId) {
+    if (!productId) {
       res
         .status(400)
         .json(new ApiResultDTO(responseCode.REQUIRED_EMPTY, {}, "필수값 누락"));
