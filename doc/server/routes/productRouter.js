@@ -22,6 +22,11 @@ const UserDAO = require("../DAO/UserDAO");
  */
 router.get("/list", verifyToken, async (req, res) => {
   const param = req.query;
+
+  if (param.cursor) param.cursor = parseInt(param.cursor);
+  if (param.count) param.count = parseInt(param.count);
+  if (param.userId) param.userId = parseInt(param.userId);
+
   try {
     const productDAO = new ProductDAO();
     res.json(

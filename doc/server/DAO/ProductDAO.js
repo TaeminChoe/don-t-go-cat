@@ -52,7 +52,10 @@ class ProductDAO extends DAO {
     // 전체 리스트 개수
     const conditionAllList = super.getList(filterCondition);
     const totalCount = conditionAllList.length;
-    const list = conditionAllList.slice(cursor, cursor + count);
+    const list = conditionAllList.slice(
+      cursor,
+      count === 0 ? 99999 : cursor + count
+    );
 
     return {
       totalCount,
