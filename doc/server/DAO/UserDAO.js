@@ -2,6 +2,7 @@ const BASE_MOCK_USER_LIST = require("../db/User.json");
 const token = require("../Constant/token");
 const DAO = require("./DAO");
 const responseCode = require("../Constant/responseCode");
+const UserDTO = require("../DTO/UserDTO");
 
 class UserDAO extends DAO {
   constructor() {
@@ -11,7 +12,7 @@ class UserDAO extends DAO {
   /**
    * @param {String} id
    * @param {String} password
-   * @returns {String} token
+   * @returns {Object<UserDTO>} 유저 객체
    */
   getToken({ id, password }) {
     const list = super.getList();
@@ -25,8 +26,33 @@ class UserDAO extends DAO {
     }
     // CASE3. 일치하는 회원 정보가 있을 경우 토큰 반환
     else {
-      return token;
+      const userDTO = new UserDTO(
+        user.id,
+        user.nickname,
+        user.score,
+        user.profileImage,
+        user.token
+      );
+      return userDTO;
     }
+  }
+
+  /**
+   *@returns {Array<UserDTO>} 유저 리스트
+   */
+  getUserList() {
+    const list = super.getList();
+    const userDTOList = list.map(
+      (user) =>
+        new UserDTO(
+          user.id,
+          user.nickname,
+          user.score,
+          user.profileImage,
+          user.token
+        )
+    );
+    return userDTOList;
   }
 
   /**
@@ -36,6 +62,22 @@ class UserDAO extends DAO {
    */
   getUserInfo({ id }) {
     const user = super.get(id);
+
+    // 예외 처리 : 일치하는 회원 데이터 없을 경우 공백 반환
+    if (!user) {
+      return {};
+    } else {
+      return user;
+    }
+  }
+
+  /**
+   * @param {String} token - 유저 토큰
+   * @returns {Object} user 정보
+   */
+  getUserInfoByToken({ token }) {
+    const list = super.getList();
+    const user = list.find((user) => user.token === token);
 
     // 예외 처리 : 일치하는 회원 데이터 없을 경우 공백 반환
     if (!user) {
