@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import Modal from "react-modal";
-import { useSelector } from "react-redux";
+import { useRecoilValue } from "recoil";
+import { modalState } from "system/recoil/modal";
 
 const ModalContainer = () => {
-  const Components = useSelector((state) => state.modalReducer.components);
+  const modalComponents = useRecoilValue(modalState);
 
   const modalStyle = {
     overlay: {
@@ -27,7 +29,7 @@ const ModalContainer = () => {
 
   return (
     <>
-      {Components.map((item) => {
+      {modalComponents.map((item) => {
         const { Component, isOpen, key, content, clickAction } = item;
         return (
           <Modal

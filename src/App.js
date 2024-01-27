@@ -7,12 +7,14 @@ import {
 
 import routes from "./system/router";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
+import { useRecoilValue } from "recoil";
+
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import ModalContainer from "modal/ModalContainer";
-import { useSelector } from "react-redux";
+import { checkAuthState } from "system/recoil/checkAuth";
 
 function App() {
-  const { checkAuth } = useSelector((state) => state.authReducer);
+  const checkAuth = useRecoilValue(checkAuthState);
 
   return (
     <div className="App">

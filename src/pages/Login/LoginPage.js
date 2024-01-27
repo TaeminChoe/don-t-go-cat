@@ -1,34 +1,34 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { checkInAuth, showConfirmModal } from "system/common";
+import { useSetRecoilState } from "recoil";
+import { checkAuthState } from "system/recoil/checkAuth";
+import { openModal } from "system/recoil/modal";
 
 /** 로그인 페이지 */
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const checkInAuth = useSetRecoilState(checkAuthState);
+  const showModal = useSetRecoilState(openModal);
+  const { register, handleSubmit } = useForm();
 
   const handleLogin = (data) => {
     const { id, pw } = data;
-    /*
+
     if (id === "") {
-      showConfirmModal({ content: "아이디를 입력해주세요." });
+      showModal({ content: "아이디를 입력해주세요." });
       return;
     }
     if (pw === "") {
-      showConfirmModal({ content: "비밀번호를 입력해주세요." });
+      showModal({ content: "비밀번호를 입력해주세요." });
       return;
     }
-    */
-    showConfirmModal({
+
+    showModal({
       content: "등록이 완료 ~",
       clickAction: () => {
-        checkInAuth();
+        checkInAuth(true);
       },
     });
   };
+
   return (
     <div id="login">
       <form onSubmit={handleSubmit(handleLogin)}>
@@ -44,7 +44,7 @@ const LoginPage = () => {
               name="id"
               id="id"
               placeholder="아이디를 입력해주세요"
-              {...register("id", { required: "아이디를 입력해주세요." })}
+              {...register("id")}
             />
           </div>
           <div className="textfield-container">
@@ -53,7 +53,7 @@ const LoginPage = () => {
               name="pw"
               id="pw"
               placeholder="비밀번호를 입력해주세요"
-              {...register("pw", { required: "비밀번호를 입력해주세요." })}
+              {...register("pw")}
             />
           </div>
           <div className="login-button-container">

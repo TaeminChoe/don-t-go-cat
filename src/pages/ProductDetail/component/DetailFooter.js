@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
+import { useSetRecoilState } from "recoil";
+
 import { URL_HOME } from "system/URL";
-import { showConfirmModal } from "system/common";
+import { openModal } from "system/recoil/modal";
 import { changeFormatToKR } from "./../../../utils/format";
 
 const DetailFooter = ({ data }) => {
+  const showModal = useSetRecoilState(openModal);
   const [like, setLike] = useState(false);
   const nav = useHistory();
 
@@ -17,7 +20,7 @@ const DetailFooter = ({ data }) => {
   }, [like]);
 
   const handleOnClick = (e) => {
-    showConfirmModal({
+    showModal({
       content: "구매하시겠습니까?",
       clickAction: () => {
         nav.push(URL_HOME);
