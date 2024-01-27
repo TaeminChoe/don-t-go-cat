@@ -1,7 +1,9 @@
 import axios from "axios";
-import { hideModal } from "system/common";
+import { useSetRecoilState } from "recoil";
+import { closeModal } from "system/recoil/modal";
 
 const ConfirmModal = ({ componentKey, content, clickAction }) => {
+  const hideModal = useSetRecoilState(closeModal);
   const confirmAction = () => {
     axios.interceptors.response.use(
       (response) => {
