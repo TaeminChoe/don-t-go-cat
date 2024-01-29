@@ -45,7 +45,7 @@ class ProductDAO extends DAO {
 
       // CASE3. 판매자 기반 조회
       else if (category === "user") {
-        return item.sellerNickname === userId;
+        return item.userId === userId;
       }
     };
 
