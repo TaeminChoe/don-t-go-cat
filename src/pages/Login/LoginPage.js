@@ -4,6 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { postUserAccount } from "system/axios/api/user";
 import { checkAuthState } from "system/recoil/checkAuth";
 import { openModal } from "system/recoil/modal";
+import { SHA256 } from "crypto-js";
 
 /** 로그인 페이지 */
 const LoginPage = () => {
@@ -43,7 +44,6 @@ const LoginPage = () => {
 
   const onSubmit = (data) => {
     const { id, pwd } = data;
-    console.log("희연 data", data);
     if (id === "") {
       showModal({ content: "아이디를 입력해주세요." });
       return;
@@ -53,7 +53,10 @@ const LoginPage = () => {
       return;
     }
 
-    mutationPostUserAccount.mutate({ id, pwd });
+    /** SH256 해시 알고리즘을 이용한 암호화 */
+    const hashPassword = SHA256(pwd).toString();
+
+    mutationPostUserAccount.mutate({ id, pwd: hashPassword });
   };
 
   return (
