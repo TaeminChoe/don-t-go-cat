@@ -17,16 +17,15 @@ const LoginPage = () => {
   const mutationPostUserAccount = useMutation(postUserAccount, {
     onSuccess: (res) => {
       const { result } = res.data;
-      const userInfo = {
+      const userToken = {
         id: result.id,
         token: result.token,
       };
 
       // 사용자 정보를 캐시에 저장
-      queryClient.setQueryData("userAccount", result);
-      // 토큰이랑 id는 스토리지에 저장 (키에 id를 넣고 값에 token을 넣을지 아니면 id랑 token을 모두 값에 넣을것인지 ..?)
-      // sessionStorage.setItem(result.id, result.token);
-      // sessionStorage.setItem("userInfo",JSON.stringify(result.token));
+      queryClient.setQueryData("userInfo", result);
+      // id/token storage에 저장
+      sessionStorage.setItem("userToken", JSON.stringify(userToken));
 
       // 로그인 성공 팝업 표출
       showModal({
