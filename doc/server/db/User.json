@@ -2,81 +2,81 @@
   {
     "id": 1,
     "nickname": "seller1",
-    "password": "1234",
     "score": 36.5,
     "profileImage": "",
-    "token": "asdjsdiofjiasdfaqwetoken_seller1_yang"
+    "token": "asdjsdiofjiasdfaqwetoken_seller1_yang",
+    "password": "e7c1157f50f668c1e5d191f1deb19e877971268851a73582aac9621771b8916f"
   },
   {
     "id": 2,
     "nickname": "seller2",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "ewf32rerfsdfgtoken_seller2_yang"
+    "token": "ewf32rerfsdfgtoken_seller2_yang",
+    "password": "e2b4d0a696417f7ac61ae39570f662f7cad8ead4c0c3d260fff05e6e4b8089cc"
   },
   {
     "id": 3,
     "nickname": "seller3",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "234wsdfsftoken_seller3_yang"
+    "token": "234wsdfsftoken_seller3_yang",
+    "password": "8e3267816c13ed092093e2a2d5042b29594a2f0dfd49d2b403177726cb1beab1"
   },
   {
     "id": 4,
     "nickname": "seller4",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "234234awerwaertoken_seller4_yang"
+    "token": "234234awerwaertoken_seller4_yang",
+    "password": "847ae237d590704b66daa1d46750a358b7f95aa3276555a08a0faf44f50a4d08"
   },
   {
     "id": 5,
     "nickname": "seller5",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "taadfxzvoken_seller5_yang"
+    "token": "taadfxzvoken_seller5_yang",
+    "password": "547dbc35015bcf5b374b156a64d0cb4f22b97839ee48b4da83bc58ccda680d0c"
   },
   {
     "id": 6,
     "nickname": "seller6",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "tokedfdasfgdfgn_selwre234ler6_yang"
+    "token": "tokedfdasfgdfgn_selwre234ler6_yang",
+    "password": "dc046946328875a3304c662bdddfbcfa26dd280fe65bdcb8698def2e01133656"
   },
   {
     "id": 7,
     "nickname": "seller7",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "token_sellewr345r34gdgr7_yang456456456"
+    "token": "token_sellewr345r34gdgr7_yang456456456",
+    "password": "343a06ecd603878e4d52ff75b05316a88f1a691cb9ba32cbc61213018f88125d"
   },
   {
     "id": 8,
     "nickname": "seller8",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "token_sel345345ler8_y456456a465645353453ng"
+    "token": "token_sel345345ler8_y456456a465645353453ng",
+    "password": "b3d7f23a82e544a8afd2caf642a99eb37c0401027bc752890f6a8f7b06623427"
   },
   {
     "id": 9,
     "nickname": "seller9",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "toke435435n_seller943534534_y5345645645345ang"
+    "token": "toke435435n_seller943534534_y5345645645345ang",
+    "password": "ac1544b85ae071f4d0c6dbe099b354c0c48ccaf10a812e70b4093d8ae493aa39"
   },
   {
     "id": 10,
     "nickname": "seller10",
-    "password": "1234",
-    "score": 36.0,
+    "score": 36,
     "profileImage": "",
-    "token": "tdsfgsfdgsrdg45456oken_sel435345345ler10_yafsgfsfgang"
+    "token": "tdsfgsfdgsrdg45456oken_sel435345345ler10_yafsgfsfgang",
+    "password": "500d760c53834b13a95cd336c0e5502e98c18aa0dfde5a5f7d7f50cfd99a54a1"
   }
 ]

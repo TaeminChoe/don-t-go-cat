@@ -56,7 +56,32 @@ function verifyToken(req, res, next) {
   }
 }
 
+/**
+ * @description 문자열을 해쉬화하여 반환 ( SHA256 )
+ * @param {String} str
+ * @returns
+ */
+function createHash(str) {
+  const crypto = require("crypto");
+  const hash = crypto.createHash("sha256");
+  hash.update(str);
+  return hash.digest("hex");
+}
+
+/**
+ * @description 해싱처리된 패스워드 만들기
+ * @param {String} nickname
+ * @param {String} password
+ * @returns {String} 해싱처리된 패스워드
+ */
+function createHashPassword(nickname, password) {
+  const hashPassword = createHash(nickname + password);
+  return hashPassword;
+}
+
 module.exports = {
   commonErrorHandler,
   verifyToken,
+  createHash,
+  createHashPassword,
 };
