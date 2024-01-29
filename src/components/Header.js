@@ -27,10 +27,8 @@ const Header = () => {
   };
 
   const logout = () => {
-    // query에 담겨져 있는 데이터 삭제
-    queryClient.removeQueries("userInfo");
-    // storage에 담겨져 있는 토큰 정보도 삭제
-    sessionStorage.removeItem("userToken");
+    // storage에 담겨져 있는 사용자 정보 삭제
+    sessionStorage.removeItem("userInfo");
     // checkAuth도 false로 변환
     checkInAuth(false);
   };
