@@ -12,7 +12,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <ProductList products={Mock} />
+      <ProductList />
     </Layout>
   );
 };
