@@ -1,10 +1,15 @@
 import { BASENAME, URL_HOME, URL_SEARCH } from "system/URL";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { checkAuthState } from "system/recoil/checkAuth";
+import { useQueryClient } from "react-query";
 
 const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
+  const queryClient = useQueryClient();
+  const checkInAuth = useSetRecoilState(checkAuthState);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -19,6 +24,13 @@ const Header = () => {
     } else {
       setIsScroll(false);
     }
+  };
+
+  const logout = () => {
+    // storage에 담겨져 있는 사용자 정보 삭제
+    sessionStorage.removeItem("userInfo");
+    // checkAuth도 false로 변환
+    checkInAuth(false);
   };
 
   return (
@@ -56,9 +68,9 @@ const Header = () => {
         <a href="#" className="dropdown-item">
           로그인 아이디 : 양태욱멋있어
         </a>
-        <a href="#" className="dropdown-item">
+        <div className="dropdown-item" onClick={logout}>
           로그 아웃
-        </a>
+        </div>
       </aside>
     </>
   );

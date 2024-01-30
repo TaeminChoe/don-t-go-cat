@@ -1,18 +1,25 @@
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 
 import routes from "./system/router";
-import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import ModalContainer from "modal/ModalContainer";
-import { useSelector } from "react-redux";
+import { checkAuthState } from "system/recoil/checkAuth";
 
 function App() {
-  const { checkAuth } = useSelector((state) => state.authReducer);
+  const [checkAuth, setCheckAuth] = useRecoilState(checkAuthState);
+
+  useEffect(() => {
+    // 스토리지에 저장된 token이 있을 경우에는 checkAuth를 true로 바꿔서 자동로그인 활성화
+    if (!!sessionStorage.getItem("userToken")) setCheckAuth(true);
+  }, []);
 
   return (
     <div className="App">

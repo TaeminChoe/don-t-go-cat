@@ -6,6 +6,7 @@ const UserDAO = require("../DAO/UserDAO");
 const ApiResultDTO = require("../DTO/ApiResultDTO");
 const router = express.Router();
 const responseCode = require("../Constant/responseCode");
+const { createHashPassword } = require("../utils");
 
 /**
  * 로그인 ( 토큰 요청 )
@@ -18,7 +19,6 @@ router.post("/token", async (req, res) => {
   const { id, password } = req.body;
   const { SUCCESS, REQUIRED_EMPTY, EMPTY_DATA, UKNOW_ERROR } = responseCode;
   try {
-    const token = userDAO.getToken(req.body);
     // 예외처리 : 필수 값 누락
     if (!id || !password) {
       const result = new ApiResultDTO(REQUIRED_EMPTY, {}, "필수값 누락");
@@ -26,11 +26,11 @@ router.post("/token", async (req, res) => {
     }
     // 정상 시나리오 : 토큰 반환
     else {
-      const result = new ApiResultDTO(
-        SUCCESS,
-        { token, id: req.body.id },
-        "로그인 성공"
-      );
+      const user = userDAO.getToken({
+        ...req.body,
+        password: createHashPassword(id, password),
+      });
+      const result = new ApiResultDTO(SUCCESS, user, "로그인 성공");
       res.json(result);
     }
   } catch (e) {

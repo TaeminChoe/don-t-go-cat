@@ -45,14 +45,17 @@ class ProductDAO extends DAO {
 
       // CASE3. 판매자 기반 조회
       else if (category === "user") {
-        return item.sellerNickname === userId;
+        return item.userId === userId;
       }
     };
 
     // 전체 리스트 개수
     const conditionAllList = super.getList(filterCondition);
     const totalCount = conditionAllList.length;
-    const list = conditionAllList.slice(cursor, cursor + count);
+    const list = conditionAllList.slice(
+      cursor,
+      count === 0 ? 99999 : cursor + count
+    );
 
     return {
       totalCount,
@@ -67,12 +70,12 @@ class ProductDAO extends DAO {
    * @param {Number} id
    * @returns
    */
-  getDetail(id) {
-    const product = super.get(id);
+  getDetail(productId, userId) {
+    const product = super.get(productId);
     const user = new UserDAO().getUserInfo({ id: product.userId });
     const favoriteYn = new FavoriteDAO().getIsFavorite({
-      userId: 1,
-      productId: id,
+      userId,
+      productId,
     });
 
     const productDTO = new ProductDetailDTO({
