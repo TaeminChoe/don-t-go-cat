@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
-
 import { useSetRecoilState } from "recoil";
 
 import { URL_HOME } from "system/URL";
 import { openModal } from "system/recoil/modal";
-import { changeFormatToKR } from "./../../../utils/format";
+import { changeFormatToKR } from "utils/format";
 
 const DetailFooter = ({ data }) => {
   const showModal = useSetRecoilState(openModal);
   const [like, setLike] = useState(false);
   const nav = useHistory();
 
-  const { price } = data;
+  const { price } = data || {};
 
   useEffect(() => {
     // 좋아요 값에 따른

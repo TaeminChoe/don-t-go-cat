@@ -10,3 +10,10 @@ export const getProducts = (params) => {
     },
   });
 };
+export const getProductDetail = (id) => {
+  return axiosInstance.get(`/product/detail?id=${id}`, {
+    headers: {
+      Authorization: userInfo.token,
+    },
+  });
+};

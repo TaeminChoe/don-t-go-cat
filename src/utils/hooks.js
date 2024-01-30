@@ -1,29 +1,18 @@
-import { useState } from "react";
-import { getProductInfo } from "./api";
 import { useQuery } from "react-query";
+import { getProductDetail } from "system/axios/api/product";
 
 export const useGetProductDetail = (id) => {
-  const [productInfo, setProductInfo] = useState({});
+  const { data, isLoading, error } = useQuery(["product", id], async () => {
+    const response = await getProductDetail(id);
+    const { code, message, result } = response.data || {};
+    console.log(response);
+    if (code !== "200000") throw new Error(message);
 
-  // const res = useQuery(
-  const { isLoading, error } = useQuery(
-    ["product", id],
-    async () => {
-      const {
-        data: { code, message, result },
-      } = await getProductInfo(id);
-      console.log(result);
-      return result;
-    },
-    {
-      onSuccess: (data) => {
-        setProductInfo(data);
-      },
-    }
-  );
+    return result;
+  });
 
   return {
-    productInfo,
+    data,
     isLoading,
     error,
   };
