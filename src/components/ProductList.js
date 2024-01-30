@@ -1,51 +1,14 @@
-import { useEffect, useState } from "react";
-import { BASENAME, URL_PRODUCT_DETAIL } from "system/URL";
+import { URL_PRODUCT_DETAIL } from "system/URL";
 import { useHistory } from "react-router-dom";
-import { getProducts } from "system/axios/api/product";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-// 한 번에 불러올 데이터 수
-const onceCount = 20;
-
-const ProductList = ({ title = "", option = {} }) => {
-  //  option 조회할 파라미터
-  //  category : keyword(검색어) / user(판매자 다른 상품)
-  //  keyword : keyword 검색시 사용할 String
-  //  userId : user 검색시 사용할 Number
-
-  const [viewProducts, setViewProducts] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
-  const [cursor, setCursor] = useState(0);
-
+const ProductList = ({
+  title = "", // 상품 리스트 제목
+  viewProducts = [], // 상품 리스트 목록
+  hasMore = false, // 더 가져올 리스트 있는지 여부
+  next, // 더 가져올 리스트 함수
+}) => {
   const history = useHistory();
-
-  // 데이터 가져오는 함수(loadMore : 추가로 가져올 때 true)
-  const handleGetProduct = (loadMore = false) => {
-    const params = {
-      count: onceCount,
-      cursor: cursor,
-      ...option, // category 등 전달받은 조회할 데이터 값
-    };
-
-    const queryString = Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
-      .join("&");
-
-    getProducts(queryString).then((res) => {
-      const { list, totalCount } = res.data.result;
-      if (loadMore) {
-        setViewProducts(viewProducts.concat(list));
-      } else {
-        setViewProducts(list);
-      }
-      setTotalCount(totalCount);
-      setCursor(cursor + onceCount);
-    });
-  };
-
-  useEffect(() => {
-    handleGetProduct(false);
-  }, []);
 
   return (
     <div id="main">
@@ -54,10 +17,8 @@ const ProductList = ({ title = "", option = {} }) => {
         <div className={`container ${title ? "isTitle" : ""}`}>
           <InfiniteScroll
             dataLength={viewProducts.length}
-            next={() => {
-              handleGetProduct(true);
-            }}
-            hasMore={totalCount >= cursor}
+            next={next}
+            hasMore={hasMore}
           >
             {viewProducts.map((item, idx) => {
               return (
