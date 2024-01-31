@@ -11,14 +11,20 @@ import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 import routes from "./system/router";
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import ModalContainer from "modal/ModalContainer";
-import { checkAuthState } from "system/recoil/checkAuth";
+import { userInfoAtom } from "system/recoil/checkAuth";
 
 function App() {
-  const [checkAuth, setCheckAuth] = useRecoilState(checkAuthState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   useEffect(() => {
-    // 스토리지에 저장된 token이 있을 경우에는 checkAuth를 true로 바꿔서 자동로그인 활성화
-    if (!!sessionStorage.getItem("userInfo")) setCheckAuth(true);
+    // 스토리지에 저장된 token이 있을 경우에는 자동로그인 활성화
+    if (!!sessionStorage.getItem("userInfo")) {
+      const storageUserInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+      const { token } = storageUserInfo;
+      if (!!token) {
+        setUserInfo(storageUserInfo);
+      }
+    }
   }, []);
 
   return (
@@ -36,9 +42,9 @@ function App() {
                 exact={exact}
                 render={(props) => {
                   // 권한이 필요한 페이지 분기 처리
-                  if (isPrivate === true && !checkAuth) {
+                  if (isPrivate === true && !userInfo?.length === 0) {
                     return <Redirect to={URL_LOGIN} />;
-                  } else if (isPrivate === false && checkAuth) {
+                  } else if (isPrivate === false && userInfo?.length > 0) {
                     return <Redirect to={URL_HOME} />;
                   } else {
                     return <Component {...props} />;
