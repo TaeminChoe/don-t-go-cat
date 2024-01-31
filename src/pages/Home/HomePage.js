@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import Layout from "components/Layout";
-import ProductList from "components/ProductList";
 import { getProducts } from "system/axios/api/product";
+import getSuspender from "utils/getSuspender";
+import SkeletonLoading from "components/SkeletonLoading";
 
 // 한 번에 불러올 데이터 수
 const onceCount = 20;
+
+const ProductList = lazy(() => import("components/ProductList"));
 
 const HomePage = () => {
   const [viewProducts, setViewProducts] = useState([]);
@@ -40,13 +43,15 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <ProductList
-        viewProducts={viewProducts}
-        hasMore={totalCount >= cursor}
-        next={() => {
-          handleGetProduct(true);
-        }}
-      />
+      <Suspense fallback={<SkeletonLoading />}>
+        <ProductList
+          viewProducts={viewProducts}
+          hasMore={totalCount >= cursor}
+          next={() => {
+            handleGetProduct(true);
+          }}
+        />
+      </Suspense>
     </Layout>
   );
 };
