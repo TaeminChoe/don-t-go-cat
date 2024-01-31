@@ -1,6 +1,7 @@
 import { URL_PRODUCT_DETAIL } from "system/URL";
 import { useHistory } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
+import FallbackImage from "./FallbackImage";
 
 const ProductList = ({
   title = "", // 상품 리스트 제목
@@ -29,11 +30,7 @@ const ProductList = ({
                     history.push(`${URL_PRODUCT_DETAIL}/${item.id}`);
                   }}
                 >
-                  <img
-                    // src={`${BASENAME}/assets/img/sample500.png`}
-                    src={item.bannerImages[0]}
-                    alt="아이템"
-                  />
+                  <FallbackImage src={item.bannerImages[0]} />
                   <div className="title">{item.title}</div>
                   <div className="date">{item.date}</div>
                 </div>
