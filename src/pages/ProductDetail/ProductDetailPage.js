@@ -10,12 +10,56 @@ import HeaderBack from "components/HeaderBack";
 import ProductList from "components/ProductList";
 import DetailFooter from "./component/DetailFooter";
 import { useGetProductDetail } from "utils/hooks";
+import { getProducts } from "system/axios/api/product";
+import { useEffect, useState } from "react";
+
+const COUNT = 20;
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetProductDetail(id);
 
+  const [total, setTotal] = useState(0);
+  const [cursor, setCursor] = useState(0);
+  const [products, setProducts] = useState([]);
+
   const { bannerImages = [], title, description, date, seller } = data || {};
+
+  const handleGetProducts = (loadMore = false) => {
+    const {
+      seller: { id },
+    } = data;
+
+    const params = {
+      count: COUNT,
+      cursor,
+      category: "user",
+      userId: id || null,
+    };
+
+    const queryString = Object.keys(params)
+      .map((key) => `${key}=${params[key]}`)
+      .join("&");
+
+    getProducts(queryString)
+      .then((res) => {
+        const { list, totalCount } = res.data.result;
+        if (loadMore) {
+          setProducts(products.concat(list));
+        } else {
+          setProducts(list);
+        }
+        setTotal(totalCount);
+        setCursor(cursor + COUNT);
+      })
+      .catch(console.error);
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      handleGetProducts();
+    }
+  }, [isLoading]);
 
   return (
     <Layout
@@ -55,7 +99,16 @@ const ProductDetail = () => {
             }}
           />
         </div>
-        <ProductList options={{ category: "user" }} />
+        {products.length && (
+          <ProductList
+            title="판매자가 파는 다른 상품"
+            viewProducts={products}
+            hasMore={total >= cursor}
+            next={() => {
+              handleGetProducts(true);
+            }}
+          />
+        )}
       </div>
     </Layout>
   );
