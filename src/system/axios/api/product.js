@@ -2,6 +2,15 @@ import axiosInstance from "system/axios";
 
 const userInfo = JSON.parse(sessionStorage.getItem("userInfo")) || "";
 
+export const getProductsNew = (params) => {
+  return axiosInstance.get(`/product/list`, {
+    headers: {
+      Authorization: userInfo.token,
+    },
+    params: params,
+  });
+};
+
 export const getProducts = (queryString) => {
   return axiosInstance.get(`/product/list?${queryString}`, {
     headers: {

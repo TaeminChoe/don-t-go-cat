@@ -22,13 +22,13 @@ const LoginPage = () => {
       const { result } = res.data;
       // 스토리지에 사용자 정보 저장
       sessionStorage.setItem("userInfo", JSON.stringify(result));
-      // recoil에 저장
-      setUserInfo(result);
 
       // 로그인 성공 팝업 표출
       showModal({
         content: "로그인에 성공했습니다.",
         clickAction: () => {
+          // recoil에 저장
+          setUserInfo(result);
           history.push(URL_HOME);
         },
       });
