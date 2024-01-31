@@ -1,12 +1,10 @@
-import { BASENAME } from "system/URL";
-
-const FallbackImage = ({ src }) => {
+const FallbackImage = ({ imgSrc, fallbackImg }) => {
   return (
     <img
-      src={src}
+      src={imgSrc}
       alt="아이템"
       onError={(e) => {
-        e.target.src = `${BASENAME}/assets/img/sample500.png`;
+        e.target.src = fallbackImg;
       }}
     />
   );
