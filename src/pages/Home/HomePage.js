@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import Layout from "components/Layout";
-import { getProducts } from "system/axios/api/product";
+import { getProductsNew } from "system/axios/api/product";
 import getSuspender from "utils/getSuspender";
 import SkeletonLoading from "components/SkeletonLoading";
 
@@ -10,49 +10,62 @@ const onceCount = 20;
 const ProductList = lazy(() => import("components/ProductList"));
 
 const HomePage = () => {
-  const [viewProducts, setViewProducts] = useState([]);
+  const [viewProducts, setViewProducts] = useState();
   const [totalCount, setTotalCount] = useState(0);
   const [cursor, setCursor] = useState(0);
 
   // 데이터 가져오는 함수(loadMore : 추가로 가져올 때 true)
-  const handleGetProduct = (loadMore = false) => {
+  const handleGetProduct = async () => {
     const params = {
       count: onceCount,
       cursor: cursor,
     };
 
-    const queryString = Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
-      .join("&");
+    if (cursor === 0) {
+      await (() => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 1000);
+        });
+      })();
+    }
 
-    getProducts(queryString).then((res) => {
+    getProductsNew(params).then((res) => {
       const { list, totalCount } = res.data.result;
-      if (loadMore) {
-        setViewProducts(viewProducts.concat(list));
-      } else {
-        setViewProducts(list);
-      }
+      setViewProducts((prev = []) => [...prev, ...list]);
+
       setTotalCount(totalCount);
       setCursor(cursor + onceCount);
     });
   };
 
   useEffect(() => {
-    handleGetProduct(false);
+    handleGetProduct();
   }, []);
 
   return (
     <Layout>
       <Suspense fallback={<SkeletonLoading />}>
-        <ProductList
-          viewProducts={viewProducts}
-          hasMore={totalCount >= cursor}
-          next={() => {
-            handleGetProduct(true);
-          }}
-        />
+        <PromiseWrapper isLoading={!viewProducts}>
+          <ProductList
+            viewProducts={viewProducts}
+            hasMore={totalCount >= cursor}
+            next={() => {
+              handleGetProduct();
+            }}
+          />
+        </PromiseWrapper>
       </Suspense>
     </Layout>
   );
 };
 export default HomePage;
+
+const PromiseWrapper = (props) => {
+  const { isLoading } = props;
+
+  if (isLoading) throw new Promise(() => {});
+
+  return { ...props.children };
+};
