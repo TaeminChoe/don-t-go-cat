@@ -15,15 +15,13 @@ import { userInfoAtom } from "system/recoil/checkAuth";
 
 function App() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const isCheckAuth = !!userInfo && !!userInfo.token;
 
   useEffect(() => {
     // 스토리지에 저장된 token이 있을 경우에는 자동로그인 활성화
     if (!!sessionStorage.getItem("userInfo")) {
       const storageUserInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-      const { token } = storageUserInfo;
-      if (!!token) {
-        setUserInfo(storageUserInfo);
-      }
+      setUserInfo(storageUserInfo);
     }
   }, []);
 
@@ -42,9 +40,9 @@ function App() {
                 exact={exact}
                 render={(props) => {
                   // 권한이 필요한 페이지 분기 처리
-                  if (isPrivate === true && !userInfo?.length === 0) {
+                  if (isPrivate === true && !isCheckAuth) {
                     return <Redirect to={URL_LOGIN} />;
-                  } else if (isPrivate === false && userInfo?.length > 0) {
+                  } else if (isPrivate === false && isCheckAuth) {
                     return <Redirect to={URL_HOME} />;
                   } else {
                     return <Component {...props} />;
