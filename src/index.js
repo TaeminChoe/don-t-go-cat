@@ -1,18 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import App from "./App";
-import rootReducer from "system/redux";
-import { init } from "system/common";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const store = createStore(rootReducer);
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0, // 요청 실패했을 경우 재요청 횟수
+      suspense: true, // React.Suspense를 사용할 때
+    },
+  },
+});
+
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </React.StrictMode>
-  </Provider>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+    </QueryClientProvider>
+  </RecoilRoot>
 );
-init(store);

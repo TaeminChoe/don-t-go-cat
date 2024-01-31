@@ -1,35 +1,53 @@
-import ModalPortal from "./ModalPortal";
-import { hideModal } from "system/common";
-const ModalContainer = ({ content, clickAction }) => {
-  const confirmHandler = () => {
-    if (clickAction) clickAction();
-    hideModal();
+import { useEffect } from "react";
+import Modal from "react-modal";
+import { useRecoilValue } from "recoil";
+import { modalState } from "system/recoil/modal";
+
+const ModalContainer = () => {
+  const modalComponents = useRecoilValue(modalState);
+
+  const modalStyle = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(255, 255, 255, 0.45)",
+      zIndex: 9999,
+    },
+    content: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
+      padding: 0,
+      border: "none",
+    },
   };
+
   return (
-    <ModalPortal>
-      <div id="modalContainer" className="modal-container">
-        <div className="background"></div>
-        <div className="paper-container">
-          <div className="paper">
-            <div className="popup-header">알림</div>
-
-            <div className="popup-content">
-              <div className="content">
-                <div className="description">
-                  {content || "오류가 발생했습니다."}
-                </div>
-              </div>
-            </div>
-
-            <div className="button-container">
-              <button id="modal-submit-btn" onClick={confirmHandler}>
-                확인
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ModalPortal>
+    <>
+      {modalComponents.map((item) => {
+        const { Component, isOpen, key, content, clickAction } = item;
+        return (
+          <Modal
+            key={key}
+            isOpen={isOpen}
+            ariaHideApp={false}
+            style={modalStyle}
+          >
+            <Component
+              componentKey={key}
+              content={content}
+              clickAction={clickAction}
+            />
+          </Modal>
+        );
+      })}
+    </>
   );
 };
+
 export default ModalContainer;

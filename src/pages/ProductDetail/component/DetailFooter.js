@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 import { URL_HOME } from "system/URL";
-import { showModal } from "system/common";
-import { changeFormatToKR } from "./../../../utils/format";
+import { Dislike, postLike } from "system/axios/api/product";
+import { openModal } from "system/recoil/modal";
+import { changeFormatToKR } from "utils/format";
 
 const DetailFooter = ({ data }) => {
+  const showModal = useSetRecoilState(openModal);
   const [like, setLike] = useState(false);
   const nav = useHistory();
 
-  const { price } = data;
+  const { price = 0, favoriteYn, id } = data || {};
 
   useEffect(() => {
-    // 좋아요 값에 따른
-  }, [like]);
+    setLike(favoriteYn === "Y");
+  }, [data]);
 
   const handleOnClick = (e) => {
     showModal({
@@ -25,13 +28,31 @@ const DetailFooter = ({ data }) => {
     });
   };
 
+  const toggleLikeButton = () => {
+    if (like) {
+      Dislike(id)
+        .then((res) => {
+          console.log(res.message || "");
+          setLike(!like);
+        })
+        .catch(console.error);
+    } else {
+      postLike(id)
+        .then((res) => {
+          console.log(res.message || "");
+          setLike(!like);
+        })
+        .catch(console.error);
+    }
+  };
+
   return (
     <footer className="footer">
       {/* <!-- 좋아요 버튼 토글 --> */}
       <div
         id="likeButton"
         className={`like ${like ? "active" : ""}`}
-        onClick={() => setLike(!like)}
+        onClick={toggleLikeButton}
       />
       {/* <!-- 상품 가격 --> */}
       <div className="price">{changeFormatToKR(price)}</div>

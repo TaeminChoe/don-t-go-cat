@@ -1,0 +1,9 @@
+.skeleton-box {
+  margin-top: 80px;
+  padding: 20px;
+}
+.MuiBox-root {
+  width: 90%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
