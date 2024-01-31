@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetProductDetail(id);
 
-  const { title, description, date, seller } = data || {};
+  const { bannerImages = [], title, description, date, seller } = data || {};
 
   return (
     <Layout
@@ -34,18 +34,13 @@ const ProductDetail = () => {
           slidesToScroll={1}
           arrows={false}
         >
-          <div className="banner">
-            <img src="../assets/img/sample500.png" alt="배너" />
-          </div>
-          <div className="banner">
-            <img src="../assets/img/sample500.png" alt="배너" />
-          </div>
-          <div className="banner">
-            <img src="../assets/img/sample500.png" alt="배너" />
-          </div>
-          <div className="banner">
-            <img src="../assets/img/sample500.png" alt="배너" />
-          </div>
+          {bannerImages.map((image, idx) => {
+            return (
+              <div className="banner" key={idx}>
+                <img src={image} alt="배너" />
+              </div>
+            );
+          })}
         </Slider>
 
         <SellerInfo seller={seller} />
@@ -60,7 +55,7 @@ const ProductDetail = () => {
             }}
           />
         </div>
-        <ProductList title="판매자의 다른 상품" pruducts={[]} />
+        <ProductList options={{ category: "user" }} />
       </div>
     </Layout>
   );

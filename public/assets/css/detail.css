@@ -98,6 +98,14 @@
 
 #detail .dots-position {
   bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#detail .dots-position li.slick-active button:before {
+  color: white;
+}
+#detail .dots-position li button:before {
+  color: #b7b7b7;
 }
 
 /* 판매자의 다른 상품 */
