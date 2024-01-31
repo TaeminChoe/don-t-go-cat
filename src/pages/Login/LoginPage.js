@@ -5,9 +5,12 @@ import { postUserAccount } from "system/axios/api/user";
 import { checkAuthState } from "system/recoil/checkAuth";
 import { openModal } from "system/recoil/modal";
 import { SHA256 } from "crypto-js";
+import { URL_HOME } from "system/URL";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 /** 로그인 페이지 */
 const LoginPage = () => {
+  const history = useHistory();
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset } = useForm();
   const checkInAuth = useSetRecoilState(checkAuthState);
@@ -25,6 +28,7 @@ const LoginPage = () => {
         content: "로그인에 성공했습니다.",
         clickAction: () => {
           checkInAuth(true);
+          history.push(URL_HOME);
         },
       });
     },

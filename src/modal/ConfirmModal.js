@@ -1,20 +1,13 @@
-import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { closeModal } from "system/recoil/modal";
 
 const ConfirmModal = ({ componentKey, content, clickAction }) => {
   const hideModal = useSetRecoilState(closeModal);
+
   const confirmAction = () => {
-    axios.interceptors.response.use(
-      (response) => {
-        console.log("Response: OnFulfilled");
-        return response;
-      },
-      (error) => {
-        console.log("Response: OnRejected");
-      }
-    );
+    // API 호출이 완료되면 clickAction 실행 및 모달 닫기
     if (clickAction) clickAction();
+
     hideModal(componentKey);
   };
 

@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     // 스토리지에 저장된 token이 있을 경우에는 checkAuth를 true로 바꿔서 자동로그인 활성화
-    if (!!sessionStorage.getItem("userToken")) setCheckAuth(true);
+    if (!!sessionStorage.getItem("userInfo")) setCheckAuth(true);
   }, []);
 
   return (
