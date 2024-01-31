@@ -18,6 +18,11 @@ function App() {
   const isCheckAuth = !!userInfo && !!userInfo.token;
 
   useEffect(() => {
+    // 새로고침 시 스크롤 맨 위로 이동
+    window.onbeforeunload = function pushRefresh() {
+      window.scrollTo(0, 0);
+    };
+
     // 스토리지에 저장된 token이 있을 경우에는 자동로그인 활성화
     if (!!sessionStorage.getItem("userInfo")) {
       const storageUserInfo = JSON.parse(sessionStorage.getItem("userInfo"));
