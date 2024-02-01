@@ -8,7 +8,12 @@ import { Dislike, postLike } from "system/axios/api/product";
 import { openModal } from "system/recoil/modal";
 import { changeFormatToKR } from "utils/format";
 
-const DetailFooter = ({ data }) => {
+/**
+ * @property {Object} data - 상품 상세 정보
+ * @property {Function} resetQuery - 쿼리 초기화 함수
+ * @returns
+ */
+const DetailFooter = ({ data, resetQuery = () => {} }) => {
   const showModal = useSetRecoilState(openModal);
   const [like, setLike] = useState(false);
   const nav = useHistory();
@@ -28,22 +33,20 @@ const DetailFooter = ({ data }) => {
     });
   };
 
+  /** 좋아요 버튼 클릭 이벤트 */
   const toggleLikeButton = () => {
-    if (like) {
-      Dislike(id)
-        .then((res) => {
-          console.log(res.message || "");
-          setLike(!like);
-        })
-        .catch(console.error);
-    } else {
-      postLike(id)
-        .then((res) => {
-          console.log(res.message || "");
-          setLike(!like);
-        })
-        .catch(console.error);
-    }
+    // 좋아요 버튼에 따른 API 호출 함수 분기
+    const promiseFunc = !!like ? Dislike : postLike;
+    promiseFunc(id)
+      .then((res) => {
+        console.log(res.message || "");
+        setLike(!like);
+      })
+      .catch(console.error)
+      // finally : 캐시 초기화
+      .finally(() => {
+        resetQuery();
+      });
   };
 
   return (

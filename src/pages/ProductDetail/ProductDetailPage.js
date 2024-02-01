@@ -16,6 +16,7 @@ import FallbackImage from "components/FallbackImage";
 import { BASENAME } from "system/URL";
 import { Skeleton } from "@mui/material";
 import SkeletonDetailLoading from "loading/SkeletonDetailLoading";
+import { useQueryClient } from "react-query";
 
 const COUNT = 20;
 
@@ -23,6 +24,7 @@ const ProductDetail = (props) => {
   const { id } = useParams();
   const [isLoadFirst, setIsLoadFirst] = useState(); // 첫번째 배너 이미지 로딩 여부
   const { data, isLoading, error } = useGetProductDetail(id);
+  const queryClient = useQueryClient();
 
   const [total, setTotal] = useState(0);
   const [cursor, setCursor] = useState(0);
@@ -65,6 +67,11 @@ const ProductDetail = (props) => {
     setIsLoadFirst(false);
   }, [props.match.params.id]);
 
+  /** Cache Query 초기화 */
+  const resetQuery = () => {
+    queryClient.invalidateQueries("product_");
+  };
+
   if (isLoading) return <SkeletonDetailLoading />;
 
   return (
@@ -72,7 +79,7 @@ const ProductDetail = (props) => {
       id={"detail"}
       CustomHeader={HeaderBack}
       CustomFooter={DetailFooter}
-      FooterOptions={{ data }}
+      FooterOptions={{ data, resetQuery }}
     >
       <div style={{ marginBottom: "30px" }}>
         <div className="image-container">
@@ -129,7 +136,7 @@ const ProductDetail = (props) => {
             }}
           />
         </div>
-        {products.length && (
+        {!!products.length && (
           <ProductList
             title="판매자가 파는 다른 상품"
             viewProducts={products}
