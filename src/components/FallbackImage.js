@@ -1,7 +1,7 @@
 import { BASENAME } from "system/URL";
 
 const FallbackImage = (props) => {
-  const { imgSrc, fallbackImg } = props;
+  const { imgSrc, fallbackImg, ...otherProps } = props;
   return (
     <img
       src={imgSrc}
@@ -9,7 +9,7 @@ const FallbackImage = (props) => {
       onError={(e) => {
         e.target.src = fallbackImg || `${BASENAME}/assets/img/sample500.png`;
       }}
-      {...props}
+      {...otherProps}
     />
   );
 };
