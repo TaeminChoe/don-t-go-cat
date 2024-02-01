@@ -61,6 +61,8 @@ const ProductDetail = (props) => {
   /** 다른 화면의 상세로 이동시 스크롤 초기화 */
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Fix : 이미지와 텍스트 싱크가 안맞는 문제  > 첫번째 이미지 로딩 여부 초기화
+    setIsLoadFirst(false);
   }, [props.match.params.id]);
 
   if (isLoading) return <SkeletonDetailLoading />;
