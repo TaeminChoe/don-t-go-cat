@@ -14,6 +14,7 @@ const SearchPage = () => {
   const [totalCount, setTotalCount] = useState(0);
   const cursor = useRef(0);
   const [isSearched, setIsSearched] = useState(false);
+  const searchRef = useRef(null);
 
   useEffect(() => {
     setIsOpen(autoKeyword.length >= 1);
@@ -46,6 +47,20 @@ const SearchPage = () => {
     setViewProducts([]);
   };
 
+  useEffect(() => {
+    function outsideCLick(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("click", outsideCLick);
+    document.addEventListener("scroll", outsideCLick);
+    return () => {
+      document.removeEventListener("click", outsideCLick);
+      document.removeEventListener("scroll", outsideCLick);
+    };
+  }, [searchRef]);
+
   return (
     <Layout
       CustomHeader={HeaderSearch}
@@ -62,6 +77,7 @@ const SearchPage = () => {
       <div
         id="suggest-keyword"
         className={`dropdown-suggest ${isOpen ? "is-open" : ""}`}
+        ref={searchRef}
       >
         <h3 className="suggest-title">추천 검색어</h3>
         {autoKeyword.map((item, idx) => {
