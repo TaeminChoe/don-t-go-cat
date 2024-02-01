@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { postUserAccount } from "system/axios/api/user";
-import { userInfoAtom } from "system/recoil/checkAuth";
+import { setUserInfo } from "system/recoil/checkAuth";
 import { openModal } from "system/recoil/modal";
 import { SHA256 } from "crypto-js";
 import { URL_HOME } from "system/URL";
@@ -14,7 +14,7 @@ const LoginPage = () => {
   const { register, handleSubmit, reset } = useForm();
   const showModal = useSetRecoilState(openModal);
 
-  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const registUserInfo = useSetRecoilState(setUserInfo);
 
   // 데이터를 post하는 경우 useMutation을 사용
   const mutationPostUserAccount = useMutation(postUserAccount, {
@@ -28,7 +28,7 @@ const LoginPage = () => {
         content: "로그인에 성공했습니다.",
         clickAction: () => {
           // recoil에 저장
-          setUserInfo(result);
+          registUserInfo(result);
           history.push(URL_HOME);
         },
       });

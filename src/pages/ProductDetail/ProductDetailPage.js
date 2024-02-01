@@ -10,7 +10,7 @@ import HeaderBack from "components/HeaderBack";
 import ProductList from "components/ProductList";
 import DetailFooter from "./component/DetailFooter";
 import { useGetProductDetail } from "utils/hooks";
-import { getProducts } from "system/axios/api/product";
+import { getProductsNew } from "system/axios/api/product";
 import { useEffect, useState } from "react";
 
 const COUNT = 20;
@@ -25,7 +25,7 @@ const ProductDetail = () => {
 
   const { bannerImages = [], title, description, date, seller } = data || {};
 
-  const handleGetProducts = (loadMore = false) => {
+  const handleGetProducts = () => {
     const {
       seller: { id },
     } = data;
@@ -37,22 +37,13 @@ const ProductDetail = () => {
       userId: id || null,
     };
 
-    const queryString = Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
-      .join("&");
+    getProductsNew(params).then((res) => {
+      const { list, totalCount } = res.data.result;
+      setProducts((prev = []) => [...prev, ...list]);
 
-    getProducts(queryString)
-      .then((res) => {
-        const { list, totalCount } = res.data.result;
-        if (loadMore) {
-          setProducts(products.concat(list));
-        } else {
-          setProducts(list);
-        }
-        setTotal(totalCount);
-        setCursor(cursor + COUNT);
-      })
-      .catch(console.error);
+      setTotal(totalCount);
+      setCursor(cursor + COUNT);
+    });
   };
 
   useEffect(() => {
@@ -104,9 +95,7 @@ const ProductDetail = () => {
             title="판매자가 파는 다른 상품"
             viewProducts={products}
             hasMore={total >= cursor}
-            next={() => {
-              handleGetProducts(true);
-            }}
+            next={handleGetProducts}
           />
         )}
       </div>

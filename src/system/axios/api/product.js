@@ -1,50 +1,26 @@
 import axiosInstance from "system/axios";
 
-const userInfo = JSON.parse(sessionStorage.getItem("userInfo")) || "";
-
 export const getProductsNew = (params) => {
   return axiosInstance.get(`/product/list`, {
-    headers: {
-      Authorization: userInfo.token,
-    },
     params: params,
   });
 };
 
 export const getProducts = (queryString) => {
-  return axiosInstance.get(`/product/list?${queryString}`, {
-    headers: {
-      Authorization: userInfo.token,
-    },
-  });
+  return axiosInstance.get(`/product/list?${queryString}`, {});
 };
 export const getProductDetail = (id) => {
-  return axiosInstance.get(`/product/detail?id=${id}`, {
-    headers: {
-      Authorization: userInfo.token,
-    },
-  });
+  return axiosInstance.get(`/product/detail?id=${id}`);
 };
 
 export const postLike = (productId) => {
-  return axiosInstance.post(
-    `/product/favorite`,
-    {
-      productId,
-    },
-    {
-      headers: {
-        Authorization: userInfo.token,
-      },
-    }
-  );
+  return axiosInstance.post(`/product/favorite`, {
+    productId,
+  });
 };
 
 export const Dislike = (productId) => {
   return axiosInstance.delete(`/product/favorite?productId=${productId}`, {
     data: { productId },
-    headers: {
-      Authorization: userInfo.token,
-    },
   });
 };

@@ -1,29 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 
 import routes from "./system/router";
 import { BASENAME, URL_HOME, URL_LOGIN, URL_NOT_FOUND } from "system/URL";
 import ModalContainer from "modal/ModalContainer";
-import { userInfoAtom } from "system/recoil/checkAuth";
+import { setUserInfo, userInfoAtom } from "system/recoil/checkAuth";
 
 function App() {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+  const [loading, setLoading] = useState(true);
+
+  const userInfo = useRecoilValue(userInfoAtom);
+  const registUserInfo = useSetRecoilState(setUserInfo);
   const isCheckAuth = !!userInfo && !!userInfo.token;
 
   useEffect(() => {
     // 스토리지에 저장된 token이 있을 경우에는 자동로그인 활성화
     if (!!sessionStorage.getItem("userInfo")) {
       const storageUserInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-      setUserInfo(storageUserInfo);
+      registUserInfo(storageUserInfo);
     }
+    setLoading(false);
   }, []);
+
+  if (loading) return <></>;
 
   return (
     <div className="App">
