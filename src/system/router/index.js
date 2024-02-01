@@ -45,6 +45,7 @@ const routes = [
     name: "검색",
     component: Search,
     isPrivate: true,
+    cache: true,
   },
   {
     path: URL.URL_NOT_FOUND,

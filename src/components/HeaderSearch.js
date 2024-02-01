@@ -3,11 +3,21 @@ import { useHistory } from "react-router-dom";
 import { debounce } from "lodash";
 import { BASENAME } from "system/URL";
 import { getKeyword } from "system/axios/api/product";
+import { openModal } from "system/recoil/modal";
+import { useSetRecoilState } from "recoil";
 
 const HeaderSearch = (props) => {
-  const { keyword, setKeyword, setAutoKeyword, searchKeyword } = props;
+  const {
+    keyword,
+    setKeyword,
+    setAutoKeyword,
+    searchKeyword,
+    setIsSearched,
+    resetSearch,
+  } = props;
   const [query, setQuery] = useState(""); // 메모리에 저장될 키워드
   const nav = useHistory();
+  const showModal = useSetRecoilState(openModal);
 
   const onChangeKeyword = (e) => {
     debouncedSearch(e.target.value);
@@ -34,7 +44,7 @@ const HeaderSearch = (props) => {
 
         // 그 값으로 API 데이터 가져오기
         getData(keyword);
-      }, 1000),
+      }, 200),
     [query]
   );
 
@@ -44,7 +54,18 @@ const HeaderSearch = (props) => {
   };
 
   const handleSearch = () => {
-    searchKeyword(keyword);
+    if (!!keyword) {
+      resetSearch();
+      searchKeyword(keyword);
+      setIsSearched(true);
+    } else {
+      showModal({ content: "검색어를 입력해주세요." });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    // 엔터키 입력
+    if (e.keyCode === 13) handleSearch();
   };
 
   return (
@@ -59,6 +80,7 @@ const HeaderSearch = (props) => {
           placeholder="검색어를 입력해주세요."
           onChange={onChangeKeyword}
           value={keyword}
+          onKeyDown={handleKeyDown}
         />
         <div id="searchBtn" className="icons" onClick={handleSearch}>
           <span id="search-icon" className="icon">
