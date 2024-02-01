@@ -24,3 +24,11 @@ export const Dislike = (productId) => {
     data: { productId },
   });
 };
+
+export const getKeyword = (keyword) => {
+  return axiosInstance.get(`/product/keyword?keyword=${keyword}`, {
+    headers: {
+      Authorization: userInfo.token,
+    },
+  });
+};
