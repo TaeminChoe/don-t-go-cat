@@ -19,7 +19,7 @@ import SkeletonDetailLoading from "loading/SkeletonDetailLoading";
 
 const COUNT = 20;
 
-const ProductDetail = () => {
+const ProductDetail = (props) => {
   const { id } = useParams();
   const [isLoadFirst, setIsLoadFirst] = useState(); // 첫번째 배너 이미지 로딩 여부
   const { data, isLoading, error } = useGetProductDetail(id);
@@ -51,11 +51,17 @@ const ProductDetail = () => {
     });
   };
 
+  /** 로딩이 완료된 후 상품 리스트 조회 */
   useEffect(() => {
     if (!isLoading) {
       handleGetProducts();
     }
   }, [isLoading]);
+
+  /** 다른 화면의 상세로 이동시 스크롤 초기화 */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [props.match.params.id]);
 
   if (isLoading) return <SkeletonDetailLoading />;
 
