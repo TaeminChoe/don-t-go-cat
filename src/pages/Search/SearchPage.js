@@ -13,6 +13,7 @@ const SearchPage = () => {
   const [viewProducts, setViewProducts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [cursor, setCursor] = useState(0);
+  const [isSearched, setIsSearched] = useState(false);
 
   useEffect(() => {
     setIsOpen(autoKeyword.length >= 1);
@@ -26,13 +27,17 @@ const SearchPage = () => {
       keyword: item,
     };
 
-    getProductsNew(params).then((res) => {
-      const { list, totalCount } = res.data.result;
-      setViewProducts((prev = []) => [...prev, ...list]);
-      setTotalCount(totalCount);
-      setCursor(cursor + onceCount);
-      setIsOpen(false);
-    });
+    getProductsNew(params)
+      .then((res) => {
+        const { list, totalCount } = res.data.result;
+        setViewProducts((prev = []) => [...prev, ...list]);
+        setTotalCount(totalCount);
+        setCursor(cursor + onceCount);
+        setIsOpen(false);
+      })
+      .catch((error) => {
+        console.log("error ", error);
+      });
   };
 
   return (
@@ -44,6 +49,7 @@ const SearchPage = () => {
         setKeyword: setKeyword,
         setAutoKeyword: setAutoKeyword,
         searchKeyword: searchKeyword,
+        setIsSearched: setIsSearched,
       }}
     >
       <div
@@ -75,11 +81,11 @@ const SearchPage = () => {
             searchKeyword(keyword);
           }}
         />
-      ) : (
+      ) : isSearched ? (
         <div className="empty-result">
           <p>검색 결과가 없습니다.</p>
         </div>
-      )}
+      ) : null}
     </Layout>
   );
 };
