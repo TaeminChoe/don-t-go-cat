@@ -9,6 +9,14 @@ export const useGetProductDetail = (id) => {
       const { code, message, result } = response.data || {};
       if (code !== "200000") throw new Error(message);
 
+      await (() => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 1500);
+        });
+      })();
+
       return result;
     },
     {

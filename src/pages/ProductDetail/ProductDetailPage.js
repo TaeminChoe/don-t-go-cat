@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import FallbackImage from "components/FallbackImage";
 import { BASENAME } from "system/URL";
 import { Skeleton } from "@mui/material";
+import SkeletonDetailLoading from "loading/SkeletonDetailLoading";
 
 const COUNT = 20;
 
@@ -55,6 +56,8 @@ const ProductDetail = () => {
       handleGetProducts();
     }
   }, [isLoading]);
+
+  if (isLoading) return <SkeletonDetailLoading />;
 
   return (
     <Layout
