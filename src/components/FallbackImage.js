@@ -1,6 +1,7 @@
 import { BASENAME } from "system/URL";
 
-const FallbackImage = ({ imgSrc, fallbackImg }) => {
+const FallbackImage = (props) => {
+  const { imgSrc, fallbackImg } = props;
   return (
     <img
       src={imgSrc}
@@ -8,6 +9,7 @@ const FallbackImage = ({ imgSrc, fallbackImg }) => {
       onError={(e) => {
         e.target.src = fallbackImg || `${BASENAME}/assets/img/sample500.png`;
       }}
+      {...props}
     />
   );
 };
