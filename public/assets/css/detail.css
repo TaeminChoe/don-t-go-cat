@@ -103,12 +103,13 @@
 }
 
 #detail .dots-position {
-  bottom: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  bottom: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #detail .dots-position li.slick-active button:before {
   color: white;
+  font-size: 12px;
 }
 #detail .dots-position li button:before {
   color: #b7b7b7;
