@@ -14,12 +14,13 @@ import { getProductsNew } from "system/axios/api/product";
 import { useEffect, useState } from "react";
 import FallbackImage from "components/FallbackImage";
 import { BASENAME } from "system/URL";
+import { Skeleton } from "@mui/material";
 
 const COUNT = 20;
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [loadEnded, setLoadEnded] = useState();
+  const [isLoadFirst, setIsLoadFirst] = useState(); // 첫번째 배너 이미지 로딩 여부
   const { data, isLoading, error } = useGetProductDetail(id);
 
   const [total, setTotal] = useState(0);
@@ -55,7 +56,6 @@ const ProductDetail = () => {
     }
   }, [isLoading]);
 
-  console.log("ytw ProductDetail", loadEnded);
   return (
     <Layout
       id={"detail"}
@@ -64,7 +64,9 @@ const ProductDetail = () => {
       FooterOptions={{ data }}
     >
       <div style={{ marginBottom: "30px" }}>
-        <div className="image-container" x>
+        <div className="image-container">
+          {/* 첫 번째 이미지가 로드 되기전까지 스켈레톤 로딩 표출 */}
+          {!isLoadFirst && <SkeletonLoading />}
           <Slider
             dots
             dotsClass="slick-dots dots-position"
@@ -72,6 +74,9 @@ const ProductDetail = () => {
             slidesToShow={1}
             slidesToScroll={1}
             arrows={false}
+            style={{
+              visibility: isLoadFirst ? "visible" : "hidden",
+            }}
           >
             {bannerImages.map((image, idx) => {
               return (
@@ -82,11 +87,18 @@ const ProductDetail = () => {
                     margin: 0,
                   }}
                 >
-                  <img
+                  <FallbackImage
                     src={image}
                     alt="배너"
                     onLoad={(e) => {
-                      setLoadEnded((prev = []) => [...prev, true]);
+                      if (idx === 0) {
+                        setIsLoadFirst(true);
+                      }
+                    }}
+                    handleError={() => {
+                      if (idx === 0) {
+                        setIsLoadFirst(true);
+                      }
                     }}
                   />
                 </div>
@@ -147,5 +159,18 @@ const SellerInfo = ({ seller }) => {
         <div>{score || ""}</div>
       </div>
     </div>
+  );
+};
+
+/** 이미지용 스켈레톤 컴포넌트 */
+const SkeletonLoading = (props) => {
+  return (
+    <Skeleton
+      {...props}
+      variant="rectangular"
+      width={"100vw"}
+      height={"100vw"}
+      sx={{ display: "inline-block" }}
+    ></Skeleton>
   );
 };
