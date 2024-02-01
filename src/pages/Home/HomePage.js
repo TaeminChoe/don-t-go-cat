@@ -2,9 +2,9 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import Layout from "components/Layout";
 import { getProductsNew } from "system/axios/api/product";
 import getSuspender from "utils/getSuspender";
-import SkeletonLoading from "components/SkeletonLoading";
 import { openModal } from "system/recoil/modal";
 import { useSetRecoilState } from "recoil";
+import SkeletonLoading from "loading/SkeletonLoading";
 
 // 한 번에 불러올 데이터 수
 const onceCount = 20;
@@ -33,7 +33,7 @@ const HomePage = () => {
         });
       })();
     }
-    
+
     getProductsNew(params).then((res) => {
       const { list, totalCount } = res.data.result;
       setViewProducts((prev = []) => [...prev, ...list]);
@@ -57,6 +57,7 @@ const HomePage = () => {
             next={() => {
               handleGetProduct();
             }}
+            cursor={cursor}
           />
         </PromiseWrapper>
       </Suspense>
