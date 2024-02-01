@@ -5,7 +5,7 @@ import SkeletonLoading from "./SkeletonLoading";
 
 const SkeletonDetailLoading = () => {
   return (
-    <Layout id="detail" CustomHeader={HeaderBack}>
+    <Layout id="detail" className="skeleton" CustomHeader={HeaderBack}>
       <div style={{ marginBottom: "30px" }}>
         <div className="banner" style={{ width: "100vw", height: "100vw" }}>
           <Skeleton
@@ -44,15 +44,8 @@ const SkeletonDetailLoading = () => {
           <Skeleton style={{ width: "60%" }} />
         </div>
         {/** 판매자가 파는 다른 상품 */}
-        <div className="title" style={{ position: "relative" }}>
-          <Skeleton
-            style={{
-              width: "60%",
-              position: "absolute",
-              left: "30px",
-              top: "50px",
-            }}
-          />
+        <div className="mini-title">
+          <Skeleton style={{ width: "40%" }} />
         </div>
         <SkeletonLoading />
       </div>
