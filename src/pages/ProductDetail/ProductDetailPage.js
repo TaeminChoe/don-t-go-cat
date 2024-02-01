@@ -96,6 +96,7 @@ const ProductDetail = () => {
             viewProducts={products}
             hasMore={total >= cursor}
             next={handleGetProducts}
+            isDetail={true}
           />
         )}
       </div>
