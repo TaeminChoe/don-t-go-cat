@@ -7,8 +7,12 @@
   margin-bottom: 20px;
   box-sizing: border-box;
 }
-
-/* 상품 상세화면 로딩 화면 스타일 */
-#detail #contentContainer .container {
-  margin-top: 50px;
+#detail.skeleton .banner {
+  margin-top: 60px;
+}
+#detail.skeleton .mini-title {
+  margin-top: 25px;
+}
+#detail.skeleton #contentContainer .container {
+  margin-top: 0px;
 }
