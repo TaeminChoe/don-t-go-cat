@@ -13,13 +13,14 @@ const ProductList = ({
   viewProducts = [], // 상품 리스트 목록
   hasMore = false, // 더 가져올 리스트 있는지 여부
   next, // 더 가져올 리스트 함수
+  isDetail=false // 상세 페이지 margin 조정
 }) => {
   const history = useHistory();
 
   return (
     <div id="main">
       <div id="contentContainer" className="is-open">
-        {!!title && <div className="mini-title">{title}</div>}
+        {!!title && <div className="mini-title"style={isDetail ? { marginTop:"25px" } : {}}>{title}</div>}
         <div className={`container ${title ? "isTitle" : ""}`}>
           <InfiniteScroll
             dataLength={viewProducts.length}
