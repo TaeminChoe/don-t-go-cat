@@ -21,6 +21,9 @@ export const useGetProductDetail = (id) => {
     },
     {
       suspense: false,
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60, // staleTime: 1분 동안 유효한 값으로 처리
+      cacheTime: 1000 * 60 * 5, // cacheTime: 5분 동안 캐시 유지 (미리보기)
     }
   );
 
