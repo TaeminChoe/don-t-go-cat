@@ -7,8 +7,14 @@ import { openModal } from "system/recoil/modal";
 import { useSetRecoilState } from "recoil";
 
 const HeaderSearch = (props) => {
-  const { keyword, setKeyword, setAutoKeyword, searchKeyword, setIsSearched } =
-    props;
+  const {
+    keyword,
+    setKeyword,
+    setAutoKeyword,
+    searchKeyword,
+    setIsSearched,
+    resetSearch,
+  } = props;
   const [query, setQuery] = useState(""); // 메모리에 저장될 키워드
   const nav = useHistory();
   const showModal = useSetRecoilState(openModal);
@@ -49,6 +55,7 @@ const HeaderSearch = (props) => {
 
   const handleSearch = () => {
     if (!!keyword) {
+      resetSearch();
       searchKeyword(keyword);
       setIsSearched(true);
     } else {
