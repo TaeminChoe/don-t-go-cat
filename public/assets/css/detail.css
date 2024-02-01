@@ -15,9 +15,13 @@
 /* Header End */
 
 /* Banner Start */
+#detail .image-container {
+  margin-top: 60px;
+  width: 100vw;
+  height: 100vw;
+}
 
 #detail .banner {
-  margin-top: 60px;
   width: 100%;
   background-color: #f5f5f5;
   display: flex;

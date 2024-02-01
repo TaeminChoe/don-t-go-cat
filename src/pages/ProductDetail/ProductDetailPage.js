@@ -12,11 +12,14 @@ import DetailFooter from "./component/DetailFooter";
 import { useGetProductDetail } from "utils/hooks";
 import { getProductsNew } from "system/axios/api/product";
 import { useEffect, useState } from "react";
+import FallbackImage from "components/FallbackImage";
+import { BASENAME } from "system/URL";
 
 const COUNT = 20;
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const [loadEnded, setLoadEnded] = useState();
   const { data, isLoading, error } = useGetProductDetail(id);
 
   const [total, setTotal] = useState(0);
@@ -52,6 +55,7 @@ const ProductDetail = () => {
     }
   }, [isLoading]);
 
+  console.log("ytw ProductDetail", loadEnded);
   return (
     <Layout
       id={"detail"}
@@ -60,24 +64,36 @@ const ProductDetail = () => {
       FooterOptions={{ data }}
     >
       <div style={{ marginBottom: "30px" }}>
-        {/* <!-- 배너 영역 : 라이브러리 적용 하십쇼 --> */}
-        <Slider
-          dots
-          dotsClass="slick-dots dots-position"
-          speed={500}
-          slidesToShow={1}
-          slidesToScroll={1}
-          arrows={false}
-        >
-          {bannerImages.map((image, idx) => {
-            return (
-              <div className="banner" key={idx}>
-                <img src={image} alt="배너" />
-              </div>
-            );
-          })}
-        </Slider>
-
+        <div className="image-container" x>
+          <Slider
+            dots
+            dotsClass="slick-dots dots-position"
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            arrows={false}
+          >
+            {bannerImages.map((image, idx) => {
+              return (
+                <div
+                  className="banner"
+                  key={idx}
+                  style={{
+                    margin: 0,
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt="배너"
+                    onLoad={(e) => {
+                      setLoadEnded((prev = []) => [...prev, true]);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </Slider>
+        </div>
         <SellerInfo seller={seller} />
 
         <div className="product-info">
@@ -105,13 +121,25 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
+/**
+ *
+ * @property {Object} seller 판매자 정보 객체
+ * @property {string} seller.nickname 판매자 닉네임
+ * @property {number} seller.score 판매자 매너 점수
+ * @property {string} seller.profileImage 판매자 프로필 이미지 URL
+ * @returns
+ */
 const SellerInfo = ({ seller }) => {
-  const { nickname, score } = seller || {};
+  const { nickname, score, profileImage } = seller || {};
 
   return (
     <div className="seller-info">
       <div className="profile">
-        <img src="../assets/img/sample500.png" />
+        {/* <img src={profileImage} alt="profile" /> */}
+        <FallbackImage
+          imgSrc={profileImage || ""}
+          fallbackImg={`${BASENAME}/assets/img/profile_fallback.jpeg`}
+        />
       </div>
       <div className="seller-id">{nickname || ""}</div>
       <div className="seller-score">
