@@ -80,6 +80,10 @@
   display: block;
 }
 
+#search .dropdown-suggest .dropdown-item img {
+  vertical-align: middle;
+}
+
 #search .empty-result {
   display: flex;
   justify-content: center;
