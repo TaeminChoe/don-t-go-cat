@@ -1,6 +1,6 @@
 import { BASENAME, URL_HOME, URL_LOGIN, URL_SEARCH } from "system/URL";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { userInfoAtom } from "system/recoil/checkAuth";
 import { useResetRecoilState } from "recoil";
 
@@ -8,6 +8,7 @@ const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
   const resetUserInfo = useResetRecoilState(userInfoAtom);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -31,9 +32,26 @@ const Header = () => {
     resetUserInfo();
   };
 
+  // 메뉴 열린 상태에서 리스트 스크롤시 메뉴 닫기
+  useEffect(() => {
+    function outsideCLick(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpenMenu(false);
+      }
+    }
+    document.addEventListener("scroll", outsideCLick);
+    return () => {
+      document.removeEventListener("scroll", outsideCLick);
+    };
+  }, [menuRef]);
+
   return (
     <>
-      <header id="mainHeader" className={`${isScroll ? "is-scroll" : ""}`}>
+      <header
+        id="mainHeader"
+        className={`${isScroll ? "is-scroll" : ""}`}
+        ref={menuRef}
+      >
         <Link to={URL_HOME} className="logo">
           <img src={`${BASENAME}/assets/img/logo.png`} alt="로고" />
         </Link>
