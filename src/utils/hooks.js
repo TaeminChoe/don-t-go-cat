@@ -13,7 +13,7 @@ export const useGetProductDetail = (id) => {
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve();
-          }, 1500);
+          }, 1000);
         });
       })();
 
