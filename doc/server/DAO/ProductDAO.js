@@ -77,6 +77,8 @@ class ProductDAO extends DAO {
       userId,
       productId,
     });
+    // 그냥 보낼 경우 password도 같이 전달되는 문제
+    delete user.password;
 
     const productDTO = new ProductDetailDTO({
       ...product,
