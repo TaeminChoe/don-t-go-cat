@@ -1,17 +1,15 @@
 import { useParams } from "react-router-dom";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as DOMPurify from "dompurify";
-
 import Layout from "components/Layout";
 import HeaderBack from "components/HeaderBack";
 import ProductList from "components/ProductList";
 import DetailFooter from "./component/DetailFooter";
 import { useGetProductDetail } from "utils/hooks";
 import { getProductsNew } from "system/axios/api/product";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FallbackImage from "components/FallbackImage";
 import { BASENAME } from "system/URL";
 import { Skeleton } from "@mui/material";
@@ -20,17 +18,40 @@ import { useQueryClient } from "react-query";
 
 const COUNT = 20;
 
+/**
+ * @description 상품 상세 페이지
+ * 홈, 검색, 상품 리스트 페이지에서 상품 클릭 시 해당 페이지로 진입 가능하다.
+ */
 const ProductDetail = (props) => {
   const { id } = useParams();
   const [isLoadFirst, setIsLoadFirst] = useState(); // 첫번째 배너 이미지 로딩 여부
-  const { data, isLoading, error } = useGetProductDetail(id);
+  const { data, isLoading } = useGetProductDetail(id);
   const queryClient = useQueryClient();
 
   const [total, setTotal] = useState(0);
   const [cursor, setCursor] = useState(0);
   const [products, setProducts] = useState([]);
 
+  const sliderRef = useRef(null);
+
   const { bannerImages = [], title, description, date, seller } = data || {};
+
+  /** 로딩이 완료된 후 상품 리스트 조회 */
+  useEffect(() => {
+    if (!isLoading) {
+      handleGetProducts();
+    }
+  }, [isLoading]);
+
+  /** 판매자의 다른 상품 상세로 이동시 초기화 작업 */
+  useEffect(() => {
+    // 스크롤 초기화
+    window.scrollTo(0, 0);
+    // 첫번째 이미지 로딩 여부 초기화
+    setIsLoadFirst(false);
+    // 슬라이더 인덱스 초기화
+    !!sliderRef.current && sliderRef.current.slickGoTo(0);
+  }, [props.match.params.id]);
 
   const handleGetProducts = () => {
     const {
@@ -52,20 +73,6 @@ const ProductDetail = (props) => {
       setCursor(cursor + COUNT);
     });
   };
-
-  /** 로딩이 완료된 후 상품 리스트 조회 */
-  useEffect(() => {
-    if (!isLoading) {
-      handleGetProducts();
-    }
-  }, [isLoading]);
-
-  /** 다른 화면의 상세로 이동시 스크롤 초기화 */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    // Fix : 이미지와 텍스트 싱크가 안맞는 문제  > 첫번째 이미지 로딩 여부 초기화
-    setIsLoadFirst(false);
-  }, [props.match.params.id]);
 
   /** Cache Query 초기화 */
   const resetQuery = () => {
@@ -92,6 +99,7 @@ const ProductDetail = (props) => {
             slidesToShow={1}
             slidesToScroll={1}
             arrows={false}
+            ref={sliderRef}
             style={{
               visibility: isLoadFirst ? "visible" : "hidden",
             }}
@@ -166,7 +174,6 @@ const SellerInfo = ({ seller }) => {
   return (
     <div className="seller-info">
       <div className="profile">
-        {/* <img src={profileImage} alt="profile" /> */}
         <FallbackImage
           imgSrc={profileImage || ""}
           fallbackImg={`${BASENAME}/assets/img/profile_fallback.jpeg`}
