@@ -2,6 +2,7 @@ import HeaderSearch from "components/HeaderSearch";
 import Layout from "components/Layout";
 import ProductList from "components/ProductList";
 import { useEffect, useRef, useState } from "react";
+import { BASENAME } from "system/URL";
 import { getProductsNew } from "system/axios/api/product";
 
 const onceCount = 20;
@@ -15,6 +16,12 @@ const SearchPage = () => {
   const cursor = useRef(0);
   const [isLoading, setIsLoading] = useState(true);
   const searchRef = useRef(null);
+  // localStorage에 저장된 최근 검색어
+  const recentKeyword = JSON.parse(localStorage.getItem("recentSearch")) || [];
+  // 현재 로그인된 id
+  const userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+  // 노출할 최근 검색어 리스트
+  const [recentList, setRecentList] = useState([]);
 
   useEffect(() => {
     setIsOpen(autoKeyword.length >= 1);
@@ -63,6 +70,15 @@ const SearchPage = () => {
     };
   }, [searchRef]);
 
+  // 현재 로그인 된 userId로 검색된 최근 검색어 가져오기
+  useEffect(() => {
+    setRecentList(
+      recentKeyword.filter((keyword) => {
+        return keyword.userId === userId;
+      })
+    );
+  }, [keyword]);
+
   return (
     <Layout
       CustomHeader={HeaderSearch}
@@ -80,6 +96,22 @@ const SearchPage = () => {
         className={`dropdown-suggest ${isOpen ? "is-open" : ""}`}
         ref={searchRef}
       >
+        {/* 최근 검색어 */}
+        {recentList.map((keyword, idx) => {
+          return (
+            <p
+              className="dropdown-item"
+              key={idx}
+              onClick={() => {
+                setKeyword(keyword.keyword);
+                searchKeyword(keyword.keyword);
+              }}
+            >
+              <img src={`${BASENAME}/assets/icon/clock.svg`} alt="시계" />{" "}
+              {keyword.keyword}
+            </p>
+          );
+        })}
         <h3 className="suggest-title">추천 검색어</h3>
         {autoKeyword.map((item, idx) => {
           return (
