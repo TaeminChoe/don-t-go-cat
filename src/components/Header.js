@@ -14,15 +14,14 @@ const Header = () => {
   const { nickname = "" } = useRecoilValue(userInfoAtom);
 
   useEffect(() => {
-    /** 메뉴 닫힘 상태에서 스크롤 이벤트 : 다른 화면 클릭시 메뉴 닫기 */
-    const handleMenuClose = (event) => {
+    /** 스크롤 상태에 따른 상태 변경 */
+    const handleScroll = (event) => {
+      // 메뉴가 열려있는 상태에서 메뉴 영역 외 클릭 시 메뉴 닫기
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpenMenu(false);
       }
-    };
 
-    /** 스크롤 상태에 따른 상태 변경 */
-    const handleScroll = () => {
+      // 스크롤 위치에 따른 상태 변경
       if (window.scrollY >= 60) {
         setIsScroll(true);
       } else {
@@ -30,11 +29,9 @@ const Header = () => {
       }
     };
     // 스크롤 관련 이벤트 추가
-    document.addEventListener("scroll", handleMenuClose);
     document.addEventListener("scroll", handleScroll);
     return () => {
       // 컴포넌트 제거 시 스크롤 관련 이벤트 제거
-      document.removeEventListener("scroll", handleMenuClose);
       document.removeEventListener("scroll", handleScroll);
     };
   }, []);
