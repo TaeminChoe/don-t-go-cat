@@ -52,18 +52,20 @@ const HeaderSearch = (props) => {
       resetSearch();
       searchKeyword(keyword);
 
-      // 최근 검색어 localStorage에 저장
       const userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-      const recent = JSON.parse(localStorage.getItem("recentSearch")) || [];
 
-      // 중복 값 제거
-      if (
-        recent.findIndex(
-          (item) => item.userId === userId && item.keyword === keyword
-        ) === -1
-      )
-        recent.push({ userId: userId, keyword: keyword });
+      // 기존 스토리지에 저장된 최근 검색어 값 가져오기
+      const recent = JSON.parse(localStorage.getItem("recentSearch")) || {};
 
+      // 저장된 값중에 userId를 이용해서 저장된 값 가져오기
+      const target = recent[userId] || [];
+      // 검색어 배열에 추가
+      target.push(keyword);
+
+      // userId를 키값으로, 검색 키워드를 value로 넣기
+      // 중복 제거를 위해 Set 객체로 변환하여 배열로 변환
+      recent[userId] = Array.from(new Set(target));
+      // 스토리지에 저장하기
       localStorage.setItem("recentSearch", JSON.stringify(recent));
 
       // debounce 해제
