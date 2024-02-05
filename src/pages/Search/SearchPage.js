@@ -72,11 +72,7 @@ const SearchPage = () => {
 
   // 현재 로그인 된 userId로 검색된 최근 검색어 가져오기
   useEffect(() => {
-    setRecentList(
-      recentKeyword.filter((keyword) => {
-        return keyword.userId === userId;
-      })
-    );
+    setRecentList(recentKeyword[userId] || []);
   }, [keyword]);
 
   return (
@@ -103,12 +99,13 @@ const SearchPage = () => {
               className="dropdown-item"
               key={idx}
               onClick={() => {
-                setKeyword(keyword.keyword);
-                searchKeyword(keyword.keyword);
+                resetSearch();
+                setKeyword(keyword);
+                searchKeyword(keyword);
               }}
             >
               <img src={`${BASENAME}/assets/icon/clock.svg`} alt="시계" />{" "}
-              {keyword.keyword}
+              {keyword}
             </p>
           );
         })}
@@ -119,6 +116,7 @@ const SearchPage = () => {
               className="dropdown-item"
               key={idx}
               onClick={() => {
+                resetSearch();
                 setKeyword(item);
                 searchKeyword(item);
               }}
