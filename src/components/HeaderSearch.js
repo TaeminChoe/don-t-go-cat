@@ -55,16 +55,17 @@ const HeaderSearch = (props) => {
       // 최근 검색어 localStorage에 저장
       const userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
       const recent = JSON.parse(localStorage.getItem("recentSearch")) || [];
-      
-      recent.push({ userId: userId, keyword: keyword });
 
       // 중복 값 제거
-      const result = [
-        ...new Set(recent.map((word) => JSON.stringify(word))),
-      ].map((word) => 
-        JSON.parse(word)
-      );
-      localStorage.setItem("recentSearch", JSON.stringify(result));
+      if (
+        recent.findIndex(
+          (item) => item.userId === userId && item.keyword === keyword
+        ) === -1
+      )
+        recent.push({ userId: userId, keyword: keyword });
+
+      localStorage.setItem("recentSearch", JSON.stringify(recent));
+
       // debounce 해제
       debouncedSearch.cancel();
     } else {
